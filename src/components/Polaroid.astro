@@ -1,0 +1,25 @@
+---
+// a polaroid. leave `src` empty to get a marked placeholder.
+import Tape from './Tape.astro';
+interface Props {
+  src?: string;
+  alt: string;
+  caption?: string;
+  tilt?: number;
+  width?: number;
+  tape?: 'blush' | 'peach' | 'butter' | 'pistachio' | 'sky' | 'lilac' | false;
+  peel?: boolean;
+  placeholder?: string;
+}
+const {
+  src, alt, caption, tilt = -2, width = 240, tape = 'lilac', peel = false,
+  placeholder = '[TODO: photo]',
+} = Astro.props;
+---
+<figure class:list={['polaroid', { 'peel-host': peel }]} style={`--tilt:${tilt}deg;--pw:${width}px`}>
+  {tape && <Tape color={tape} pattern="dots" peel={peel} rotate={tilt > 0 ? -5 : 4} />}
+  {src
+    ? <img src={src} alt={alt} loading="lazy" decoding="async" width="400" height="400" />
+    : <div class="polaroid__blank" role="img" aria-label={alt}>{placeholder}</div>}
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

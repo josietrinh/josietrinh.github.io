@@ -1,0 +1,72 @@
+---
+import '@fontsource/im-fell-english/400.css';
+import '@fontsource/im-fell-english/400-italic.css';
+import '@fontsource/eb-garamond/400.css';
+import '@fontsource/eb-garamond/400-italic.css';
+import '@fontsource/eb-garamond/500.css';
+import '@fontsource/eb-garamond/700.css';
+import '@fontsource/dotgothic16/400.css';
+import '@fontsource-variable/caveat';
+import '@fontsource/courier-prime/400.css';
+import '../styles/global.css';
+import '../styles/components.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import site from '../../content/site.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  /* 'soft' quiets the paper grain on long reading pages */
+  texture?: 'full' | 'soft';
+}
+const { title, description = site.description, noindex = false, texture = 'full' } = Astro.props;
+const fullTitle = title ? `${title} ☆ ${site.domain}` : `${site.name} ☆ product marketing`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en" id="top" data-texture={texture}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#f6efe6" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og.png', Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <!-- shared svg filters: crayon texture for .chalk patches -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="chalk" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="4" result="warp" />
+        <feDisplacementMap in="SourceGraphic" in2="warp" scale="12" xChannelSelector="R" yChannelSelector="G" result="rough" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="9" result="grain" />
+        <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.32" result="speckle" />
+        <feComposite in="rough" in2="speckle" operator="in" result="textured" />
+        <feGaussianBlur in="textured" stdDeviation="0.5" />
+      </filter>
+    </svg>
+    <a class="skip-link" href="#main">skip to the good part</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // reduced motion: autoplaying clips stay paused on their first frame
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        for (const v of document.querySelectorAll<HTMLVideoElement>('video[autoplay]')) { v.removeAttribute('autoplay'); v.pause(); }
+      }
+    </script>
+  </body>
+</html>

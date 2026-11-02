@@ -1,0 +1,30 @@
+---
+// a puffy, glassy pastel star, like a resin charm. decorative.
+interface Props {
+  color?: string;
+  size?: number;
+  rotate?: number;
+  style?: string;
+  class?: string;
+}
+const { color = 'var(--sky)', size = 48, rotate = 0, style = '', class: extra } = Astro.props;
+const id = `g${Math.random().toString(36).slice(2, 7)}`;
+---
+<svg
+  class:list={['glass-star', extra]}
+  viewBox="0 0 100 100"
+  style={`--c:${color};width:${size}px;height:${size}px;rotate:${rotate}deg;${style}`}
+  aria-hidden="true"
+>
+  <defs>
+    <linearGradient id={`${id}f`} x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.95" />
+      <stop offset="0.45" stop-color="var(--c)" stop-opacity="0.85" />
+      <stop offset="1" stop-color="var(--c)" stop-opacity="0.95" />
+    </linearGradient>
+  </defs>
+  <path d="M50 6 C 55 6, 58 24, 63 32 C 69 38, 92 36, 94 41 C 96 47, 78 57, 75 66 C 73 75, 83 92, 78 95 C 73 98, 58 84, 50 83 C 42 84, 27 98, 22 95 C 17 92, 27 75, 25 66 C 22 57, 4 47, 6 41 C 8 36, 31 38, 37 32 C 42 24, 45 6, 50 6 Z"
+    fill={`url(#${id}f)`} stroke="var(--c)" stroke-opacity="0.9" stroke-width="2.5" stroke-linejoin="round" />
+  <path d="M36 38 C 40 34, 44 22, 48 16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.85" />
+  <ellipse cx="62" cy="64" rx="7" ry="4" fill="#fff" opacity="0.35" transform="rotate(-30 62 64)" />
+</svg>

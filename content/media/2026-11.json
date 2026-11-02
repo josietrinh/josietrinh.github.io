@@ -1,0 +1,11 @@
+{
+  "_how_to": "one file per month, named YYYY-MM.json. type is one of: book, film, show, music, podcast, article. by, rating (1–5), note and link are optional.",
+  "month": "2026-11",
+  "items": [
+    { "type": "book", "title": "[TODO: title]", "by": "[TODO: author]", "rating": null, "note": "[TODO: one line]" },
+    { "type": "show", "title": "[TODO: title]", "rating": null, "note": "[TODO: one line]" },
+    { "type": "music", "title": "[TODO: album or song]", "by": "[TODO: artist]", "rating": null, "note": "[TODO: one line]" },
+    { "type": "podcast", "title": "[TODO: episode]", "by": "[TODO: show]", "rating": null, "note": "[TODO: one line]" },
+    { "type": "article", "title": "[TODO: title]", "link": "", "rating": null, "note": "[TODO: one line]" }
+  ]
+}

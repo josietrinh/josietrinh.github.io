@@ -1,0 +1,204 @@
+---
+import Base from '../layouts/Base.astro';
+import Chalk from '../components/Chalk.astro';
+import Note from '../components/Note.astro';
+import Polaroid from '../components/Polaroid.astro';
+import Tag from '../components/Tag.astro';
+import Tape from '../components/Tape.astro';
+import Metric from '../components/Metric.astro';
+import Sparkle from '../components/Sparkle.astro';
+
+type Pastel = 'blush' | 'peach' | 'butter' | 'pistachio' | 'sky' | 'lilac';
+const pastels: { name: Pastel; hex: string }[] = [
+  { name: 'blush', hex: '#e5d3d0' },
+  { name: 'peach', hex: '#e8d8cb' },
+  { name: 'butter', hex: '#ece5cc' },
+  { name: 'pistachio', hex: '#dcddc9' },
+  { name: 'sky', hex: '#cfd8db' },
+  { name: 'lilac', hex: '#d8d3df' },
+];
+const inks = [
+  { name: 'ink', hex: '#1f1d1c', note: '14.9:1 on paper' },
+  { name: 'ink soft', hex: '#4a4644', note: '8.3:1 on paper' },
+  { name: 'ink muted', hex: '#625d59', note: '5.8:1, paper only' },
+  { name: 'rose', hex: '#7f3e4e', note: 'little notes, links' },
+  { name: 'navy', hex: '#3b5263', note: 'focus ring' },
+];
+
+const spark = 'M12 0 C 12.8 7.6, 16.4 11.2, 24 12 C 16.4 12.8, 12.8 16.4, 12 24 C 11.2 16.4, 7.6 12.8, 0 12 C 7.6 11.2, 11.2 7.6, 12 0 Z';
+---
+<Base title="style guide" description="the design system behind josietrinh.zip." noindex>
+  <header class="sg-hero wrap">
+    <Sparkle size={16} color="var(--ink-soft)" twinkle style="top:30%;left:22%" />
+    <p class="kicker">josietrinh.zip</p>
+    <h1 class="sg-name">style guide</h1>
+    <p class="sub">a desk covered in notes, tape, and photos, under a soft grainy wash.</p>
+  </header>
+
+  <div class="wrap">
+    <section class="sg-sec" aria-labelledby="s-rules">
+      <header class="section-head"><p class="kicker">00</p><h2 id="s-rules">ground rules</h2></header>
+      <ol class="rules">
+        <li><strong>say the job in five seconds.</strong> name, role, proof, all on the first screen.</li>
+        <li><strong>everything is a real object.</strong> notes, polaroids, tickets, prints, tape. if you couldn't stick it to a desk, it doesn't go on the page.</li>
+        <li><strong>let people play.</strong> on desktop, the scraps on the landing page can be dragged around.</li>
+        <li><strong>muted pastels, grainy wash, dark ink.</strong> text on color is always ink or ink soft.</li>
+        <li><strong>results stay serious.</strong> numbers live in plain type with a pen underline, never on a cute note.</li>
+      </ol>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="sg-sec" aria-labelledby="s-type">
+      <header class="section-head"><p class="kicker">01</p><h2 id="s-type">type</h2><p class="sub">handwriting for the voice, a clean sans for reading, a soft serif italic for the odd flourish. self-hosted.</p></header>
+      <div class="type">
+        <div class="type__row">
+          <p class="type__meta">rascal · your name, and only your name (showing homemade apple until the rascal file is added)</p>
+          <p class="type__name">josie trinh</p>
+        </div>
+        <div class="type__row">
+          <p class="type__meta">gaegu · headings, nav, notes, buttons</p>
+          <p class="type__display">product marketer across games, commerce, and community.</p>
+        </div>
+        <div class="type__row">
+          <p class="type__meta">public sans, medium · everything you read</p>
+          <p class="type__body">i plan launches, run campaigns, and build the workflows that get them out the door on time. this is what case studies will be set in, so it has to stay comfortable for a few paragraphs.</p>
+        </div>
+        <div class="type__row">
+          <p class="type__meta">caveat · margin scribbles</p>
+          <p class="hand type__hand">psst, these move</p>
+        </div>
+      </div>
+
+    </section>
+
+    <hr class="divider" />
+
+    <section class="sg-sec" aria-labelledby="s-palette">
+      <header class="section-head"><p class="kicker">02</p><h2 id="s-palette">palette + paper</h2><p class="sub">dusty pastels, a blurred wash of them behind every page, and grain on top.</p></header>
+      <ul class="chips">
+        {pastels.map((p) => (
+          <li>
+            <Note color={p.name} tilt={0} tape={false} class="chip"><span class="sr-only">{p.name}</span></Note>
+            <span class="chip__name">{p.name}</span>
+            <span class="chip__hex">{p.hex}</span>
+          </li>
+        ))}
+      </ul>
+      <ul class="chips">
+        {inks.map((s) => (
+          <li>
+            <span class="chip chip--solid" style={`background:${s.hex}`}></span>
+            <span class="chip__name">{s.name}</span>
+            <span class="chip__hex">{s.hex} · {s.note}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="sg-sec" aria-labelledby="s-objects">
+      <header class="section-head"><p class="kicker">03</p><h2 id="s-objects">desk objects</h2><p class="sub">sticky notes, polaroids, ticket stubs, and prints. all held on with tape. notes are for personality, never for results.</p></header>
+      <div class="row">
+        <Note color="blush" tilt={4} tape="butter" class="sg-note">stay hungry, stay <span class="hand" style="color:var(--rose);font-size:1.25em">chalant.</span></Note>
+        <div class="ticket" style="--tilt:-7deg"><span>admit one</span><strong>est. 2005</strong><span>no. 0001</span></div>
+        <Polaroid alt="placeholder for a photo of josie" caption="me, probably" tilt={-5} width={180} tape="sky" peel />
+      </div>
+      <div class="row">
+        <a class="print peel-host sg-print" href="#s-objects" style="--tilt:-1deg">
+          <Tape color="lilac" pattern="dots" peel rotate={-4} style="top:-12px;left:calc(50% - 46px)" />
+          <div class="print__img"><Chalk color="lilac" outline={false} class="sg-cover"><span>sfu surge</span></Chalk></div>
+          <div class="print__cap">
+            <p class="sg-print__role">director, marketing & hacker experience</p>
+            <p class="sg-print__dates">mar 2024 – oct 2026</p>
+          </div>
+        </a>
+        <div class="tapes">
+          {(['blush', 'peach', 'butter', 'pistachio', 'sky', 'lilac'] as Pastel[]).map((c, i) => (
+            <div class="tape-demo"><Tape color={c} pattern={(['plain', 'dots', 'stripes', 'grid'] as const)[i % 4]} rotate={i % 2 ? 3 : -3} style="top:20px;left:14px" /></div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+
+
+    <section class="sg-sec" aria-labelledby="s-bits">
+      <header class="section-head"><p class="kicker">05</p><h2 id="s-bits">tags, metrics, buttons</h2></header>
+      <div class="row">
+        <Tag text="mock campaign" />
+        <Tag text="self-initiated" color="lilac" />
+        <Tag text="hypothetical results" color="blush" />
+        <Tag text="in progress" color="pistachio" />
+      </div>
+      <div class="metrics">
+        <Metric value="+25%" what="content production efficiency" where="kabam games" color="sky" />
+        <Metric value="+10%" what="feature marketing rate" where="teifi digital" color="butter" outline="loop" />
+      </div>
+      <div class="row">
+        <a class="btn btn--fill" href="#s-bits">see my work <svg class="btn__spark" viewBox="0 0 24 24" aria-hidden="true"><path d={spark} fill="currentColor" /></svg></a>
+        <a class="btn" href="#s-bits">about me</a>
+        <a class="link-hand" href="#s-bits">a hand-underlined link</a>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="sg-sec" aria-labelledby="s-motion">
+      <header class="section-head"><p class="kicker">06</p><h2 id="s-motion">motion</h2></header>
+      <ul class="rules">
+        <li><strong>write:</strong> your name writes itself out, left to right, then gets underlined.</li>
+        <li><strong>drop:</strong> desk scraps land one by one.</li>
+        <li><strong>drag:</strong> on desktop, scraps can be picked up and moved.</li>
+        <li><strong>peel + straighten:</strong> tape lifts and prints level out on hover.</li>
+        <li>with <em>reduce motion</em> on, everything just appears.</li>
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .sg-hero { position: relative; padding-block: clamp(3rem, 8vw, 5rem) 1rem; text-align: center; }
+  .sg-hero > p { margin-inline: auto; }
+  .sg-name { font-family: var(--font-name); font-weight: 400; font-size: var(--step-3); line-height: 1.6; }
+  .sg-hero .sub { color: var(--ink-soft); font-size: var(--step-1); }
+
+  .sg-sec { padding-top: clamp(3rem, 7vw, 4.5rem); }
+  .sg-sub { text-align: center; margin: 3rem 0 0.3rem; font-size: var(--step-1); }
+  .sg-small { text-align: center; margin: 0 auto 1.6rem; color: var(--ink-soft); }
+  .rules { max-width: 660px; margin-inline: auto; padding-left: 1.2rem; display: grid; gap: 0.6rem; }
+  .rules li::marker { color: var(--rose); }
+
+  .type { display: grid; gap: 2.4rem; text-align: center; justify-items: center; }
+  .type__row { display: grid; justify-items: center; gap: 0.4rem; }
+  .type__meta { font-size: var(--step--1); color: var(--ink-muted); }
+  .type__name { font-family: var(--font-name); font-size: var(--step-4); line-height: 1.5; }
+  .type__display { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); max-width: 24ch; line-height: 1.1; }
+  .type__body { color: var(--ink-soft); max-width: 52ch; font-size: var(--step-1); line-height: 1.45; }
+  .type__hand { font-size: 1.6rem; color: var(--rose); }
+
+
+  .chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.6rem 1rem; padding: 0; list-style: none; text-align: center; }
+  .chips + .chips { margin-top: 2.4rem; }
+  .chips li { display: grid; justify-items: center; gap: 0.1rem; }
+  :global(.chip) { display: block; width: 100%; height: 84px; padding: 0; margin-bottom: 0.6rem; }
+  .chip--solid { box-shadow: 0 1px 2px rgb(31 29 28 / 0.1); }
+  .chip__name { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; }
+  .chip__hex { font-size: var(--step--1); color: var(--ink-muted); line-height: 1.3; }
+
+  .row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2.6rem; }
+  .row + .row, .metrics + .row, .row + .metrics { margin-top: 3rem; }
+  :global(.sg-note) { width: 220px; padding: 1.2rem 1.1rem; font-size: 1.45rem; }
+
+  .sg-print { width: 260px; }
+  .sg-print__role { font-size: var(--step-1); line-height: 1.2; }
+  .sg-print__dates { font-size: var(--step--1); color: var(--ink-muted); }
+  :global(.sg-cover) { display: grid; place-items: center; width: 100%; height: 100%; font-family: var(--font-display); font-weight: 700; font-size: 1.8rem; }
+  .tapes { display: grid; grid-template-columns: repeat(3, 110px); gap: 1rem; }
+  .tape-demo { position: relative; height: 66px; background: var(--white); box-shadow: 0 1px 2px rgb(31 29 28 / 0.08), 0 8px 16px -10px rgb(31 29 28 / 0.3); }
+
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 260px)); justify-content: center; gap: 1.6rem; }
+</style>

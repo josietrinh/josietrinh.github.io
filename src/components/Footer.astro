@@ -1,0 +1,25 @@
+---
+import site from '../../content/site.json';
+const year = new Date().getFullYear();
+---
+<footer class="site-foot wrap">
+  <p>
+    © {year} {site.name}<span class="star-sep" aria-hidden="true">☆</span>made in 2005, shipped in {year}<span class="star-sep" aria-hidden="true">☆</span>no glue sticks were harmed
+  </p>
+  <a href="#top">back to the top ↑</a>
+</footer>
+
+<style>
+  .site-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 2rem;
+    margin-top: clamp(4rem, 10vw, 7rem);
+    padding-block: 2rem 2.5rem;
+    font-size: var(--step--1);
+    color: var(--ink-muted);
+    text-align: center;
+  }
+  .site-foot p { max-width: none; }
+</style>

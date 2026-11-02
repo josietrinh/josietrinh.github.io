@@ -1,0 +1,20 @@
+---
+// a four-point sparkle. decorative.
+interface Props {
+  size?: number;
+  color?: string;
+  twinkle?: boolean;
+  delay?: number;
+  style?: string;
+  class?: string;
+}
+const { size = 22, color = 'var(--rose)', twinkle = false, delay = 0, style = '', class: extra } = Astro.props;
+---
+<svg
+  class:list={['sparkle', { 'sparkle--twinkle': twinkle }, extra]}
+  viewBox="0 0 24 24"
+  style={`--s:${size}px;--sc:${color};--d:${delay}s;${style}`}
+  aria-hidden="true"
+>
+  <path d="M12 0 C 12.8 7.6, 16.4 11.2, 24 12 C 16.4 12.8, 12.8 16.4, 12 24 C 11.2 16.4, 7.6 12.8, 0 12 C 7.6 11.2, 11.2 7.6, 12 0 Z" fill="currentColor" />
+</svg>

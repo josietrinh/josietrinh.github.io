@@ -1,0 +1,12 @@
+---
+// an italic caption on a pastel label strip with an inked edge.
+interface Props {
+  color?: string;
+  as?: string;
+  class?: string;
+  style?: string;
+}
+const { color = 'var(--mint)', as = 'p', class: extra, style = '' } = Astro.props;
+const Tag = as;
+---
+<Tag class:list={['caption', extra]} style={`--cap:${color};${style}`}><slot /></Tag>

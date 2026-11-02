@@ -1,0 +1,136 @@
+---
+// frolicking: hobbies and fun projects on a pinboard, then the monthly media log (newest month first).
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Tape from '../components/Tape.astro';
+import frolic from '../../content/frolicking.json';
+
+const months = (await getCollection('media')).sort((a, b) => b.data.month.localeCompare(a.data.month));
+const monthName = (m: string) =>
+  new Date(`${m}-01T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }).toLowerCase();
+
+const tilts = [-2.5, 1.8, -1, 2.6, -1.8, 1.2];
+const tapes = ['lilac', 'butter', 'sky', 'pistachio', 'blush', 'peach'] as const;
+---
+<Base title="frolicking" description="hobbies, fun projects, and a monthly log of what josie trinh is reading, watching, and listening to.">
+  <div class="fro wrap">
+    <header class="head">
+      <h1>frolicking</h1>
+      <p class="head__sub">the stuff i do when nobody’s asking me to.</p>
+      <nav class="jump" aria-label="sections">
+        <a href="#pinboard">pinboard</a>
+        <span aria-hidden="true">☆</span>
+        <a href="#media">media log</a>
+      </nav>
+    </header>
+
+    <section id="pinboard" aria-labelledby="pin-h">
+      <h2 id="pin-h" class="sr-only">pinboard</h2>
+      <ul class="board">
+        {frolic.items.map((it, i) => {
+          const card = (
+            <>
+              {it.photo
+                ? <img src={it.photo} alt={it.alt} loading="lazy" decoding="async" />
+                : <div class="pin__blank" role="img" aria-label={it.alt}><span>{it.alt}</span></div>}
+              <h3>{it.title}</h3>
+              <p>{it.note}</p>
+            </>
+          );
+          return (
+            <li class="pin" style={`--tilt:${tilts[i % tilts.length]}deg`}>
+              <Tape color={tapes[i % tapes.length]} pattern={i % 2 ? 'stripes' : 'dots'} rotate={i % 2 ? -5 : 4} style="top:-12px;left:calc(50% - 46px)" />
+              {it.link ? <a href={it.link} target="_blank" rel="noopener">{card}</a> : <div>{card}</div>}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <section id="media" aria-labelledby="media-h">
+      <h2 id="media-h">media log</h2>
+      <p class="media__intro">what i read, watched, and listened to, a month at a time.</p>
+      {months.map((m, i) => (
+        <details class="month" open={i === 0}>
+          <summary><span>{monthName(m.data.month)}</span><span class="month__count">{m.data.items.length} things</span></summary>
+          <ul class="log">
+            {m.data.items.map((it) => (
+              <li>
+                <span class="log__type">{it.type}</span>
+                <div class="log__body">
+                  <p class="log__title">
+                    {it.link ? <a href={it.link} target="_blank" rel="noopener">{it.title} ↗</a> : <strong>{it.title}</strong>}
+                    {it.by && <span class="log__by"> — {it.by}</span>}
+                  </p>
+                  {it.note && <p class="log__note">{it.note}</p>}
+                </div>
+                {it.rating && (
+                  <span class="log__rating" aria-label={`${it.rating} out of 5`}>
+                    {'★'.repeat(it.rating)}<span aria-hidden="true">{'★'.repeat(5 - it.rating)}</span>
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </details>
+      ))}
+    </section>
+  </div>
+</Base>
+
+<style>
+  .fro { padding-top: clamp(1.5rem, 5vw, 3rem); }
+  .head h1 { font-size: clamp(3rem, 2rem + 4vw, 5rem); line-height: 1; }
+  .head__sub { margin-top: 0.6rem; color: var(--ink-soft); font-size: var(--step-1); }
+  .jump { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.8rem; margin-top: 0.9rem; font-family: var(--font-name); font-style: italic; font-size: var(--step-1); }
+  .jump span { color: var(--sky-deep); font-style: normal; font-size: 0.8em; }
+  .jump a { color: var(--ink); text-decoration-color: var(--powder); text-decoration-thickness: 3px; }
+  .jump a:hover { color: var(--blue-ink); }
+
+  section { margin-top: clamp(2.5rem, 7vw, 4.5rem); scroll-margin-top: 1.5rem; }
+  section > h2:not(.sr-only) { display: flex; align-items: center; gap: 0.9rem; font-size: var(--step-2); margin-bottom: 0.6rem; }
+  section > h2:not(.sr-only)::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+  /* pinboard: taped cards on a cork-ish panel */
+  .board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
+    gap: 2.6rem 1.8rem;
+    padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 4vw, 2.4rem);
+    list-style: none;
+    background: radial-gradient(circle, rgb(169 201 236 / 0.35) 1px, transparent 1.4px) 0 0 / 16px 16px, #f3ebdf;
+    border: 1px solid var(--rule);
+  }
+  .pin { position: relative; rotate: var(--tilt); transition: rotate 0.3s var(--ease), translate 0.3s var(--ease); }
+  .pin:hover, .pin:focus-within { rotate: 0deg; translate: 0 -3px; }
+  .pin:nth-child(3n + 2) { margin-top: 1.4rem; }
+  .pin > a, .pin > div { display: block; height: 100%; padding: 9px 9px 1rem; background: var(--white); color: var(--ink); text-decoration: none; box-shadow: 0 1px 2px rgb(30 36 51 / 0.08), 0 14px 24px -18px rgb(30 36 51 / 0.45); }
+  .pin img, .pin__blank { display: grid; place-items: center; width: 100%; aspect-ratio: 1; object-fit: cover; }
+  .pin__blank { padding: 0.8rem; background: rgb(214 228 245 / 0.55); text-align: center; }
+  .pin__blank span { font-size: 0.82rem; color: var(--ink-muted); }
+  .pin h3 { margin-top: 0.7rem; font-size: var(--step-1); }
+  .pin p { margin-top: 0.25rem; font-size: 0.95rem; line-height: 1.45; color: var(--ink-soft); }
+
+  /* media log */
+  .media__intro { margin-bottom: 1.4rem; color: var(--ink-soft); }
+  .month { max-width: 820px; border-top: 1px solid var(--rule); }
+  .month:last-of-type { border-bottom: 1px solid var(--rule); }
+  .month summary { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.9rem 0.2rem; cursor: pointer; list-style: none; font-family: var(--font-name); font-style: italic; font-size: var(--step-1); }
+  .month summary::-webkit-details-marker { display: none; }
+  .month summary::before { content: '☆'; margin-right: 0.6rem; font-style: normal; font-size: 0.8em; color: var(--sky-deep); transition: rotate 0.25s var(--ease); }
+  .month[open] summary::before { content: '★'; }
+  .month summary > span:first-child { flex: 1; }
+  .month__count { font-family: var(--font-pixel); font-style: normal; font-size: 0.75rem; color: var(--ink-muted); }
+  .log { display: grid; padding: 0 0 1rem; list-style: none; }
+  .log li { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.2rem 1rem; padding: 0.75rem 0.2rem; border-top: 1px dashed var(--rule); }
+  @media (min-width: 640px) { .log li { grid-template-columns: 7rem 1fr auto; } }
+  .log__type { font-family: var(--font-pixel); font-size: 0.75rem; color: var(--ink-muted); padding-top: 0.25rem; }
+  .log__title { max-width: none; }
+  .log__title strong { font-weight: 700; }
+  .log__title a { color: var(--blue-ink); font-weight: 700; }
+  .log__by { color: var(--ink-muted); }
+  .log__note { margin-top: 0.15rem; color: var(--ink-soft); font-size: 0.95rem; }
+  .log__rating { grid-column: 2; color: var(--sky-deep); letter-spacing: 0.08em; }
+  .log__rating span { color: color-mix(in srgb, var(--sky) 45%, transparent); }
+  @media (min-width: 640px) { .log__rating { grid-column: 3; padding-top: 0.15rem; } }
+</style>

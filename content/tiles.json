@@ -1,0 +1,62 @@
+{
+  "_how_to": "8 photo tiles around your name (the null in the middle is the name tile, leave it). drop photos in public/images/tiles/ and set photo to '/images/tiles/your-file.jpg'. motif is the woodcut drawing shown until a photo is added.",
+  "tiles": [
+    {
+      "motif": "rays",
+      "photo": "/images/tiles/kabam-summer.jpg",
+      "alt": "kabam summer intern group photo",
+      "title": "@ kabam, summer 2026:",
+      "blurb": "i had the chance to work as a product marketing intern, on marvel contest of champions!"
+    },
+    {
+      "motif": "ripples",
+      "photo": "/images/tiles/red-jacket-group.jpg",
+      "alt": "a group photo with the t1 operations team in red jackets outside the msi 2025 venue",
+      "title": "@ msi, 2025:",
+      "blurb": "had the chance to meet with t1's operations team!"
+    },
+    {
+      "motif": "stars",
+      "photo": "/images/tiles/oner-sign.jpg",
+      "alt": "holding up a handwritten sign in the crowd at msi 2025 as t1’s oner walks past",
+      "title": "#t1win:",
+      "blurb": "i've been a t1 fan for 4 years, and was lucky enough to see them irl last msi!"
+    },
+    {
+      "motif": "waves",
+      "photo": "/images/tiles/stormhacks-crew.jpg",
+      "alt": "the stormhacks crew gathered at the front of a lecture hall, under the stormhacks title on the projector screen",
+      "title": "stormhacks:",
+      "blurb": "with the team behind western canada's largest hackathon!"
+    },
+    null,
+    {
+      "motif": "sparkle",
+      "photo": "/images/tiles/peace-sign-at-event.jpg",
+      "alt": "me with a camera",
+      "title": "behind the scenes:",
+      "blurb": "i had a hard time finding photos of myself, i'm usually the one behind the camera!"
+    },
+    {
+      "motif": "dots",
+      "photo": "/images/tiles/photobooth-wall.jpg",
+      "alt": "my bedroom wall covered in photo booth strips, posters, and prints",
+      "title": "print collector:",
+      "blurb": "my love language is to ask people to go to the photobooth with me, and i've collected over 90 prints so far!"
+    },
+    {
+      "motif": "streaks",
+      "photo": "/images/tiles/league.jpg",
+      "alt": "a bereal of me next to my laptop open to the league of legends champion select screen",
+      "title": "i play league anywhere:",
+      "blurb": "like, genuinely"
+    },
+    {
+      "motif": "sunrise",
+      "photo": "/images/tiles/tet-flag.jpg",
+      "alt": "friends in conical hats holding the vietnamese flag in front of a tết backdrop",
+      "title": "i'm vietnamese:",
+      "blurb": "i was born and raised in vietnam, then i moved to canada! this has shaped my perspective and made me who i am today"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "name": "josie trinh",
+  "domain": "josietrinh.zip",
+  "role": "product marketer for the people on the other side of the launch.",
+  "intro": [
+    "i think the best launches feel less like announcements and more like invitations. whether it's marvel contest of champions players, shopify merchants, or a room of 800+ student hackers, i care about who's on the other end, and what makes them want to show up and stick around.",
+    "lately that's meant live-game marketing at kabam games, go-to-market and customer stories at teifi digital, and helping grow sfu surge's stormhacks into western canada's largest hackathon.",
+    "steve jobs said stay hungry, stay foolish. i'd rather stay hungry, stay chalant: curious enough to keep learning, and caring enough to bring people along with me."
+  ],
+  "description": "josie trinh is a product marketer who builds launches around community and connection, across games, commerce, and student hackathons.",
+  "motto": {
+    "lead": "stay hungry, stay",
+    "struck": "foolish",
+    "twist": "chalant"
+  },
+  "email": "josietrinh.work@gmail.com",
+  "links": [
+    {
+      "label": "linkedin",
+      "handle": "in/josietrinh",
+      "href": "https://www.linkedin.com/in/josietrinh/"
+    },
+    {
+      "label": "x",
+      "handle": "@josiejomie",
+      "href": "https://x.com/josiejomie"
+    }
+  ],
+  "work": [
+    {
+      "slug": "kabam-games",
+      "company": "kabam games",
+      "role": "product marketing intern",
+      "dates": "may – aug 2026",
+      "focus": "live-game marketing, campaign coordination, and creative briefing",
+      "metric": "700,000+ installs in 3 weeks",
+      "color": "blush",
+      "tag": "games",
+      "summary": "live-game marketing for marvel contest of champions: monthly campaign plans, creative briefs, and app-store event cards that helped drive 700,000+ installs in three weeks.",
+      "metrics": [
+        "700,000+ installs in 3 weeks",
+        "+25% content production efficiency"
+      ]
+    },
+    {
+      "slug": "teifi-digital",
+      "company": "teifi digital",
+      "role": "product marketing intern",
+      "dates": "may 2025 – apr 2026",
+      "focus": "ecommerce go-to-market, lead gen, and customer storytelling for shopify merchants",
+      "metric": "100+ MQLs, 50% to PQL",
+      "color": "pistachio",
+      "tag": "commerce",
+      "summary": "go-to-market for workmate's shopify pos launch to bike shops. the campaign brought in 100+ MQLs, half of which became PQLs.",
+      "metrics": [
+        "100+ MQLs, 50% to PQL",
+        "+10% feature marketing rate"
+      ]
+    },
+    {
+      "slug": "sfu-surge",
+      "company": "sfu surge",
+      "role": "marketing director",
+      "dates": "mar 2024 – oct 2026",
+      "focus": "hackathon growth, integrated marketing, and hacker experience",
+      "metric": "2,500+ applications, 93.5% submission retention",
+      "color": "lilac",
+      "tag": "community",
+      "summary": "helped make stormhacks western canada's largest hackathon two years running: 2,500+ applications across both editions and 93.5% submission retention in 2026.",
+      "metrics": [
+        "2,500+ applications",
+        "93.5% submission retention"
+      ]
+    }
+  ],
+  "techStack": [
+    {
+      "group": "design",
+      "tools": [
+        "Figma",
+        "DaVinci Resolve",
+        "CapCut"
+      ]
+    },
+    {
+      "group": "marketing & analytics",
+      "tools": [
+        "Apollo",
+        "Sprout Social",
+        "Tableau",
+        "Google Play Console",
+        "App Store Connect",
+        "G4A"
+      ]
+    },
+    {
+      "group": "workflow & collaboration",
+      "tools": [
+        "Notion",
+        "Jira",
+        "Asana",
+        "Linear",
+        "Google Workspace"
+      ]
+    },
+    {
+      "group": "web & commerce",
+      "tools": [
+        "Squarespace",
+        "Webflow",
+        "Shopify Liquid (basics)"
+      ]
+    }
+  ],
+  "bio": {
+    "text": "i’m a product marketer who places real, raw human interactions at my core, and values user-first communications"
+  }
+}

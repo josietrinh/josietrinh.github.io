@@ -1,0 +1,295 @@
+---
+// landing: woodcut tiles. two-tone blocks with cut-out motifs, on star-sprinkled paper.
+import Base from '../layouts/Base.astro';
+import Caption from '../components/Caption.astro';
+import site from '../../content/site.json';
+import tileData from '../../content/tiles.json';
+
+import { svg } from '../lib/motifs';
+import { isVideo } from '../lib/media';
+
+type Tile = { motif: string; photo: string; alt: string; title: string; blurb: string } | null;
+const heroTiles = tileData.tiles as Tile[];
+const speech = 'https://www.youtube.com/watch?v=UF8uR6Z6KLc';
+const workTiles = ['sparkle', 'waves', 'stars'];
+---
+<Base>
+  <div class="sprinkle" aria-hidden="true"></div>
+
+  <section class="hero wrap" aria-labelledby="name">
+    <div class="hero__tiles">
+      <div class="tiles tiles--blue" data-memories>
+        {heroTiles.map((t, i) =>
+          t ? (
+            <button type="button" class:list={['tile', 'tile--mem', { 'tile--right': i % 3 === 2 }]} aria-describedby={`mem-${i}`} data-title={t.title} data-blurb={t.blurb}>
+              <span class="tile__art">
+                {!t.photo
+                  ? <Fragment set:html={svg(t.motif)} />
+                  : isVideo(t.photo)
+                    ? <video src={t.photo} aria-label={t.alt} autoplay muted loop playsinline preload="metadata" />
+                    : <img src={t.photo} alt={t.alt} loading="lazy" decoding="async" />}
+              </span>
+              <span class="tile__blurb" id={`mem-${i}`} role="tooltip">
+                <strong>{t.title}</strong>
+                <span>{t.blurb}</span>
+              </span>
+            </button>
+          ) : (
+            <div class="tile tile--name">
+              <h1 id="name"><span>hi, i’m</span>{site.name}</h1>
+            </div>
+          )
+        )}
+      </div>
+      <!-- on touch screens the memory shows here instead of beside the tile -->
+      <p class="memory" data-memory aria-live="polite"><span class="memory__hint">tap a tile for a little story ☆</span></p>
+    </div>
+    <div class="hero__words">
+      <Caption color="var(--powder)" class="hero__bio">{site.bio.text}</Caption>
+      <Caption color="var(--butter)" class="hero__motto">
+        <a class="motto-link" href={speech} target="_blank" rel="noopener" aria-describedby="motto-tip">
+          <span class="sr-only">{site.motto.lead} {site.motto.twist} (opens steve jobs’ 2005 stanford commencement speech)</span>
+          <span aria-hidden="true">{site.motto.lead} <s>{site.motto.struck}</s> {site.motto.twist}</span>
+        </a>
+        <span class="motto-tip" id="motto-tip" role="tooltip">the speech that inspired me to become who i am today</span>
+      </Caption>
+      <p class="hero__est">est. 2005 ☆ josietrinh.zip</p>
+    </div>
+  </section>
+
+  <section class="work wrap" id="work" aria-labelledby="work-title">
+    <h2 id="work-title" class="work__title">selected work</h2>
+    <div class="work__grid">
+      {site.work.map((w, i) => (
+        <a class="work__item" href={`/work/${w.slug}/`}>
+          <div class="tiles tiles--sage tiles--one"><div class="tile" set:html={svg(workTiles[i])} /></div>
+          <Caption color="var(--lilac)" class="work__cap">{w.company}</Caption>
+          <p class="work__role">{w.role}</p>
+          <p class="work__dates">{w.dates}</p>
+        </a>
+      ))}
+      <a class="work__item" href="/work/#personal">
+        <div class="tiles tiles--sage tiles--one tiles--empty"><div class="tile"><span>more campaigns brewing</span></div></div>
+        <Caption color="var(--blush)" class="work__cap">personal projects</Caption>
+        <p class="work__role">[TODO] first mock campaign</p>
+        <p class="work__dates">coming soon</p>
+      </a>
+    </div>
+  </section>
+
+</Base>
+
+<script>
+  // touch screens can't hover, so a tap puts the tile's memory in the strip under the grid
+  const grid = document.querySelector<HTMLElement>('[data-memories]');
+  const out = document.querySelector<HTMLElement>('[data-memory]');
+  if (grid && out) {
+    const show = (t: HTMLElement) => {
+      out.innerHTML = '';
+      const b = document.createElement('strong');
+      b.textContent = t.dataset.title ?? '';
+      const s = document.createElement('span');
+      s.textContent = ` ${t.dataset.blurb ?? ''}`;
+      out.append(b, s);
+      grid.querySelectorAll('.tile--mem').forEach((x) => x.classList.toggle('is-on', x === t));
+    };
+    grid.querySelectorAll<HTMLElement>('.tile--mem').forEach((t) => {
+      t.addEventListener('click', () => show(t));
+      t.addEventListener('focus', () => show(t));
+    });
+  }
+</script>
+
+<style>
+  /* tiny scattered multicolour stars over the whole page */
+  .sprinkle {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.55;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='260'%3E%3Cdefs%3E%3Cpath id='s' d='M0 -7 L2 -2 7 -2 3 1.5 4.5 7 0 4 -4.5 7 -3 1.5 -7 -2 -2 -2Z'/%3E%3C/defs%3E%3Cuse href='%23s' x='20' y='22' fill='%238fb8e6'/%3E%3Cuse href='%23s' x='130' y='60' fill='%23a1755a' transform='rotate(12 130 60)'/%3E%3Cuse href='%23s' x='220' y='30' fill='%23e07a7a'/%3E%3Cuse href='%23s' x='320' y='70' fill='%2370b48c'/%3E%3Cuse href='%23s' x='70' y='120' fill='%23d9a3c9'/%3E%3Cuse href='%23s' x='180' y='150' fill='%238fb8e6' transform='rotate(-14 180 150)'/%3E%3Cuse href='%23s' x='290' y='170' fill='%23d9a3c9'/%3E%3Cuse href='%23s' x='30' y='210' fill='%2370b48c'/%3E%3Cuse href='%23s' x='140' y='235' fill='%23e07a7a' transform='rotate(20 140 235)'/%3E%3Cuse href='%23s' x='250' y='240' fill='%23a1755a'/%3E%3C/svg%3E");
+    background-size: 360px 260px;
+  }
+
+  /* ---------- tiles ---------- */
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(6px, 1.2vw, 12px);
+    padding: clamp(6px, 1.2vw, 12px);
+    background: var(--tile-paper);
+    box-shadow: 0 1px 2px rgb(30 36 51 / 0.1), 0 20px 36px -24px rgb(30 36 51 / 0.45);
+  }
+  .tiles--blue { --tile-ink: #8fb0dc; --tile-paper: #f5ead0; }
+  .tiles--sage { --tile-ink: #a7b495; --tile-paper: #dcd6ec; }
+  .tiles--one { grid-template-columns: 1fr; }
+  .tile {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--tile-ink);
+  }
+  .tile::after {
+    /* ink unevenness + paper tooth, like a block print */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--paper-tex), var(--grain);
+    background-size: 300px, 160px;
+    mix-blend-mode: multiply;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .tile :global(svg) { width: 100%; height: 100%; display: block; }
+  .tile :global(.m) { fill: var(--tile-paper); stroke: var(--tile-paper); }
+  .tile--name {
+    display: grid;
+    place-items: center;
+    background: var(--tile-paper);
+    text-align: center;
+  }
+  .tile--name h1 { display: grid; font-size: clamp(1.5rem, 0.8rem + 2.6vw, 2.8rem); line-height: 1; padding: 0.4rem; }
+  .tile--name h1 span { font-size: 0.45em; color: var(--ink-soft); margin-bottom: 0.25em; }
+
+  /* ---------- memory tiles: a photo (or the woodcut until there is one), a story on hover ---------- */
+  .tile--mem {
+    display: block;
+    width: 100%;
+    overflow: visible;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+  .tile--mem::after { display: none; }
+  .tile__art {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: var(--tile-ink);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s;
+  }
+  .tile__art::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--paper-tex), var(--grain);
+    background-size: 300px, 160px;
+    mix-blend-mode: multiply;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  /* photos stay clean: the paper texture is only for the woodcut tiles */
+  .tile__art:has(img, video)::after { display: none; }
+  .tile__art img, .tile__art video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .tile--mem:hover .tile__art,
+  .tile--mem:focus-visible .tile__art,
+  .tile--mem.is-on .tile__art { transform: translateY(-3px) rotate(-1.5deg); box-shadow: 0 12px 20px -12px rgb(30 36 51 / 0.45); z-index: 2; }
+  .tile--mem:focus-visible { outline: none; }
+  .tile--mem:focus-visible .tile__art { outline: 2px solid var(--blue-ink); outline-offset: 3px; }
+
+  /* the story card, beside the tile */
+  .tile__blurb {
+    position: absolute;
+    z-index: 10;
+    top: 8%;
+    left: calc(100% + 14px);
+    display: grid;
+    gap: 0.2rem;
+    width: 230px;
+    padding: 0.7rem 0.85rem 0.8rem;
+    background: var(--white);
+    background-image: var(--grain);
+    border: 1px solid color-mix(in srgb, var(--sky) 60%, var(--ink-muted));
+    box-shadow: 0 14px 26px -16px rgb(30 36 51 / 0.45);
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    opacity: 0;
+    translate: -6px 0;
+    transition: opacity 0.2s, translate 0.3s var(--ease);
+    pointer-events: none;
+  }
+  .tile__blurb strong { font-family: var(--font-name); font-style: italic; font-weight: 400; font-size: 1.2rem; color: var(--ink); }
+  .tile--mem:hover .tile__blurb,
+  .tile--mem:focus-visible .tile__blurb { opacity: 1; translate: 0 0; }
+  /* tiles on the right edge open their story towards the left on narrower desktops */
+  @media (max-width: 1180px) {
+    .tile--right .tile__blurb { left: auto; right: calc(100% + 14px); translate: 6px 0; }
+  }
+
+  /* touch / small screens: stories go in a strip under the grid instead */
+  .memory { display: none; }
+  @media (hover: none), (max-width: 899px) {
+    .tile__blurb { display: none; }
+    .memory {
+      display: block;
+      min-height: 4.2em;
+      margin: 1rem auto 0;
+      max-width: 560px;
+      padding: 0.7rem 0.9rem;
+      background: var(--white);
+      background-image: var(--grain);
+      border: 1px solid color-mix(in srgb, var(--sky) 60%, var(--ink-muted));
+      color: var(--ink-soft);
+      line-height: 1.45;
+    }
+    .memory :global(strong) { font-family: var(--font-name); font-style: italic; font-weight: 400; font-size: 1.15rem; color: var(--ink); }
+    .memory__hint { font-style: italic; color: var(--ink-muted); }
+  }
+
+  /* motto: links to the speech, with a little note on hover */
+  :global(.hero__motto) { position: relative; }
+  .motto-link { text-decoration: none; color: inherit; }
+  .motto-link:hover, .motto-link:focus-visible { color: var(--blue-ink); }
+  .motto-link:hover :global(s), .motto-link:focus-visible :global(s) { color: var(--blue-ink); }
+  .motto-link::after { content: ' ↗'; font-size: 0.8em; opacity: 0.6; }
+  .motto-tip {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 10px);
+    width: max-content;
+    max-width: 260px;
+    padding: 0.4rem 0.7rem;
+    background: var(--white);
+    border: 1px solid color-mix(in srgb, var(--butter) 40%, var(--ink-muted));
+    box-shadow: 0 10px 20px -12px rgb(30 36 51 / 0.4);
+    font-size: 1.05rem;
+    line-height: 1.35;
+    color: var(--ink-soft);
+    opacity: 0;
+    translate: 0 -4px;
+    transition: opacity 0.2s, translate 0.3s var(--ease);
+    pointer-events: none;
+  }
+  .motto-link:hover + .motto-tip,
+  .motto-link:focus-visible + .motto-tip { opacity: 1; translate: 0 0; }
+
+  /* ---------- hero ---------- */
+  .hero { display: grid; gap: 2rem; align-items: center; padding-top: clamp(1.5rem, 4vw, 3rem); }
+  .hero__tiles { width: min(100%, 560px); justify-self: center; }
+  .hero__tiles .tiles--blue { width: 100%; }
+  @media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 560px) 1fr; gap: 3.5rem; } }
+  .hero__words { display: grid; justify-items: start; gap: 1.2rem; }
+  :global(.hero__bio) { font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem); line-height: 1.35; padding: 0.7em 0.9em; }
+  :global(.hero__motto) s { text-decoration-thickness: 1.5px; color: var(--ink-soft); }
+  .hero__est { font-family: var(--font-pixel); font-size: 0.85rem; color: var(--ink-muted); }
+
+  /* ---------- work ---------- */
+  .work { padding-top: clamp(4rem, 9vw, 6rem); }
+  .work__title { font-size: var(--step-3); margin-bottom: 1.8rem; }
+  .work__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 2.4rem 1.6rem; }
+  .work__item { display: flex; flex-direction: column; align-items: flex-start; color: var(--ink); text-decoration: none; }
+  .work__item:hover { color: var(--ink); }
+  .work__item .tiles { width: 100%; transition: transform 0.35s var(--ease); }
+  .work__item:hover .tiles { transform: translateY(-4px) rotate(-1deg); }
+  :global(.work__cap) { margin-top: -1rem; margin-left: 0.8rem; position: relative; font-size: 1.2rem; }
+  .work__role { margin-top: 0.7rem; font-weight: 700; line-height: 1.3; }
+  .work__dates { margin-top: 0.15rem; font-size: var(--step--1); color: var(--ink-muted); }
+  .tiles--empty .tile { display: grid; place-items: center; background: transparent; border: 1.5px dashed color-mix(in srgb, var(--lilac) 30%, var(--ink-muted)); }
+  .tiles--empty .tile span { font-family: var(--font-name); font-style: italic; font-size: var(--step-1); color: var(--ink-soft); padding: 1rem; text-align: center; }
+</style>

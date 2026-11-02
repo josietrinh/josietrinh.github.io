@@ -1,0 +1,19 @@
+---
+// a chalk-pastel patch with an optional pencil outline. use as a card background.
+import Pencil from './Pencil.astro';
+interface Props {
+  color?: 'blush' | 'peach' | 'butter' | 'pistachio' | 'sky' | 'lilac' | 'olive';
+  outline?: 'oval' | 'rect' | 'loop' | false;
+  oval?: boolean;
+  as?: string;
+  href?: string;
+  class?: string;
+  style?: string;
+}
+const { color = 'blush', outline = 'rect', oval = false, as, href, class: extra, style = '' } = Astro.props;
+const Tag = as ?? (href ? 'a' : 'div');
+---
+<Tag href={href} class:list={['chalk', { 'chalk--oval': oval }, extra]} style={`--c:var(--${color});${style}`}>
+  {outline && <Pencil shape={outline} />}
+  <slot />
+</Tag>

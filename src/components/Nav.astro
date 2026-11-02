@@ -1,0 +1,73 @@
+---
+import site from '../../content/site.json';
+const links = [
+  { href: '/about/', label: 'about' },
+  { href: '/work/', label: 'work' },
+  { href: '/frolicking/', label: 'frolicking' },
+  { href: '/contact/', label: 'contact' },
+];
+const path = Astro.url.pathname;
+---
+<header class="site-head wrap">
+  <a class="brand" href="/" aria-label={`${site.domain}, home`}>{site.domain}</a>
+  <nav aria-label="main">
+    <ul class="nav">
+      {links.map((l, i) => (
+        <li>
+          {i > 0 && <span class="star-sep" aria-hidden="true">☆</span>}
+          <a href={l.href} aria-current={path.startsWith(l.href) ? 'page' : undefined}>{l.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem 2rem;
+    padding-block: 1.25rem 0.5rem;
+  }
+  @media (max-width: 599px) {
+    .site-head { justify-content: center; text-align: center; }
+  }
+  .brand {
+    font-family: var(--font-name);
+    font-style: italic;
+    font-size: 1.35rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-name);
+    font-style: italic;
+    font-size: 1.25rem;
+  }
+  @media (max-width: 420px) {
+    .nav { font-size: 1.1rem; }
+    .nav :global(.star-sep) { padding-inline: 0.25em; }
+  }
+  .nav a { position: relative; display: inline-block; padding: 0.15rem 0.3rem; text-decoration: none; }
+  .nav a::after {
+    content: '';
+    position: absolute;
+    left: 0.2rem; right: 0.2rem; bottom: 0.1rem;
+    height: 0.45em;
+    background: var(--powder);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease);
+  }
+  .nav a:hover { color: var(--ink); }
+  .nav a:hover::after, .nav a[aria-current='page']::after { transform: scaleX(1); }
+</style>

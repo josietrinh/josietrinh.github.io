@@ -1,0 +1,31 @@
+---
+// a retro desktop window: title bar, optional menu bar, optional status bar.
+interface Props {
+  title: string;
+  menu?: boolean;
+  path?: string;
+  page?: string;
+  inner?: boolean;
+  class?: string;
+}
+const { title, menu = false, path, page, inner = false, class: extra } = Astro.props;
+---
+<div class:list={['win', { 'win--inner': inner }, extra]}>
+  <div class="win__bar" aria-hidden="true">
+    <span class="win__grip"></span>
+    <span class="win__title">{title}</span>
+    <span class="win__btns"><span>▾</span><span>▴</span></span>
+  </div>
+  {menu && (
+    <div class="win__menu" aria-hidden="true"><span>file</span><span>options</span><span>window</span><span>help</span></div>
+  )}
+  <div class="win__body">
+    <slot />
+  </div>
+  {path && (
+    <div class="win__status" aria-hidden="true">
+      <span class="win__path">{path}</span>
+      {page && <span class="win__page">{page}</span>}
+    </div>
+  )}
+</div>

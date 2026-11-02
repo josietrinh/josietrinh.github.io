@@ -1,0 +1,37 @@
+{
+  "_how_to": "text for the about page. photos go in public/images/about/ and show as polaroids; leave src empty for a marked placeholder. 'currently' is a short list, edit it whenever.",
+  "blurb": [
+    "besides my pursuit of a career in pmm, i love going on long walks, hanging out at the swings, listening to an unhealthy amount of music, and playing games. oh, and also manifesting for t1 to win their 7th worlds title!"
+  ],
+  "photos": [
+    {
+      "src": "",
+      "alt": "[TODO: describe the photo]",
+      "caption": "[TODO: caption]"
+    },
+    {
+      "src": "",
+      "alt": "[TODO: describe the photo]",
+      "caption": "[TODO: caption]"
+    },
+    {
+      "src": "",
+      "alt": "[TODO: describe the photo]",
+      "caption": "[TODO: caption]"
+    }
+  ],
+  "currently": [
+    {
+      "label": "working on",
+      "text": "new iterations of this portfolio"
+    },
+    {
+      "label": "listening to",
+      "text": "wish u well, underscores"
+    },
+    {
+      "label": "learning",
+      "text": "filming & storytelling"
+    }
+  ]
+}

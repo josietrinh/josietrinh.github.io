@@ -1,0 +1,170 @@
+---
+// work: professional case studies (woodcut folders) and personal projects (a sketchbook page).
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Caption from '../../components/Caption.astro';
+import Tape from '../../components/Tape.astro';
+import site from '../../../content/site.json';
+import { svg } from '../../lib/motifs';
+
+const studies = (await getCollection('caseStudies')).sort((a, b) => a.data.order - b.data.order);
+const metricsFor = (slug: string) => site.work.find((w) => w.slug === slug)?.metrics ?? [];
+
+// newest first
+const projects = (await getCollection('personalProjects')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' }).toLowerCase();
+const tapes = ['lilac', 'butter', 'sky', 'pistachio'] as const;
+---
+<Base title="work" description="case studies from kabam games, teifi digital, and sfu surge, plus self-initiated mock campaigns by josie trinh.">
+  <div class="work wrap">
+    <header class="head">
+      <h1>work</h1>
+      <nav class="jump" aria-label="sections">
+        <a href="#professional">professional</a>
+        <span aria-hidden="true">☆</span>
+        <a href="#personal">personal projects</a>
+      </nav>
+    </header>
+
+    <section class="pro" id="professional" aria-labelledby="pro-h">
+      <h2 id="pro-h">professional</h2>
+      <ol class="cases">
+        {studies.map((s, i) => (
+          <li>
+            <a class="case" href={`/work/${s.id}/`}>
+              <span class="case__tile" aria-hidden="true" set:html={svg(s.data.motif)} />
+              <div class="case__body">
+                <p class="case__n">case study {String(i + 1).padStart(2, '0')}</p>
+                <Caption color="var(--lilac)" as="h3" class="case__co">{s.data.company}</Caption>
+                <p class="case__role"><strong>{s.data.role}</strong><span>{s.data.dates}</span></p>
+                <p class="case__focus">{s.data.focus}</p>
+                <ul class="stamps" aria-label="highlights">
+                  {metricsFor(s.id).map((m, j) => <li style={`--r:${j % 2 ? 1.5 : -2}deg`}>{m}</li>)}
+                </ul>
+                <span class="case__more">read the case study →</span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="mine" id="personal" aria-labelledby="mine-h">
+      <h2 id="mine-h">personal projects</h2>
+      <p class="mine__intro">self-initiated mock campaigns. not client work, just ideas i couldn’t leave alone.</p>
+
+      <div class="sketchbook">
+        <ul class="sketches">
+          {projects.map((p, i) => (
+            <li class="sketch" style={`--tilt:${i % 2 ? 1.2 : -1}deg`}>
+              <Tape color={tapes[i % tapes.length]} pattern="dots" rotate={i % 2 ? 4 : -4} style="top:-0.7rem;left:50%;margin-left:-46px" />
+              <a href={`/work/personal/${p.id}/`}>
+                {p.data.cover?.src
+                  ? <img src={p.data.cover.src} alt={p.data.cover.alt} loading="lazy" decoding="async" />
+                  : <span class="sketch__blank" aria-hidden="true">[TODO: cover image]</span>}
+                <span class="sketch__stamp">{p.data.status === 'mock' ? 'mock' : 'in progress'}</span>
+                <h3>{p.data.title}</h3>
+                <p class="sketch__meta">riffs on {p.data.brand} ☆ {p.data.type} ☆ {monthYear(p.data.date)}</p>
+                <p class="sketch__summary">{p.data.summary}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="brewing">more campaigns brewing.</p>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .work { padding-top: clamp(1.5rem, 5vw, 3rem); }
+  .head h1 { font-size: clamp(3rem, 2rem + 4vw, 5rem); line-height: 1; }
+  .jump { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.8rem; margin-top: 0.8rem; font-family: var(--font-name); font-style: italic; font-size: var(--step-1); }
+  .jump span { color: var(--sky-deep); font-style: normal; font-size: 0.8em; }
+  .jump a { color: var(--ink); text-decoration-color: var(--powder); text-decoration-thickness: 3px; }
+  .jump a:hover { color: var(--blue-ink); }
+
+  section { margin-top: clamp(3rem, 8vw, 5rem); scroll-margin-top: 1.5rem; }
+  section > h2 { display: flex; align-items: center; gap: 0.9rem; font-size: var(--step-2); margin-bottom: 1.6rem; }
+  section > h2::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+  /* professional: woodcut tile + file details */
+  .cases { display: grid; gap: clamp(1.6rem, 4vw, 2.4rem); padding: 0; list-style: none; }
+  .case {
+    display: grid;
+    gap: 1.2rem 1.8rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  @media (min-width: 680px) { .case { grid-template-columns: minmax(180px, 240px) 1fr; align-items: start; } }
+  .case__tile {
+    display: block;
+    aspect-ratio: 1;
+    max-width: 240px;
+    padding: 10px;
+    background: #dcd6ec;
+    box-shadow: 0 1px 2px rgb(30 36 51 / 0.1), 0 20px 36px -24px rgb(30 36 51 / 0.45);
+    transition: transform 0.35s var(--ease);
+  }
+  .case__tile :global(svg) { display: block; width: 100%; height: 100%; background: #a7b495; }
+  .case__tile :global(.m) { fill: #dcd6ec; stroke: #dcd6ec; }
+  .case:hover .case__tile, .case:focus-visible .case__tile { transform: translateY(-4px) rotate(-1deg); }
+  .case__n { font-family: var(--font-pixel); font-size: 0.78rem; color: var(--blue-ink); }
+  :global(.case__co) { margin-top: 0.4rem; font-size: var(--step-2); }
+  .case__role { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.9rem; margin-top: 0.8rem; max-width: none; }
+  .case__role strong { font-weight: 700; }
+  .case__role span { color: var(--ink-muted); font-size: var(--step--1); }
+  .case__focus { margin-top: 0.4rem; color: var(--ink-soft); }
+  .case__more { display: inline-block; margin-top: 1rem; color: var(--blue-ink); text-decoration: underline; text-decoration-color: var(--sky); text-underline-offset: 0.2em; }
+  .case:hover .case__more { text-decoration-color: currentColor; }
+
+  /* key metrics, inked on like rubber stamps */
+  .stamps { display: flex; flex-wrap: wrap; gap: 0.6rem 0.8rem; margin-top: 1rem; padding: 0; list-style: none; }
+  .stamps li {
+    padding: 0.25rem 0.6rem;
+    border: 1.5px solid color-mix(in srgb, var(--blue-ink) 70%, transparent);
+    outline: 1px solid color-mix(in srgb, var(--blue-ink) 35%, transparent);
+    outline-offset: 2px;
+    border-radius: 3px;
+    font-family: var(--font-pixel);
+    font-size: 0.82rem;
+    color: var(--blue-ink);
+    rotate: var(--r);
+  }
+
+  /* personal: a dotted sketchbook page with taped-in cards */
+  .mine__intro { margin-bottom: 1.6rem; color: var(--ink-soft); }
+  .sketchbook {
+    padding: clamp(1.4rem, 4vw, 2.6rem) clamp(1rem, 4vw, 2.6rem);
+    background:
+      radial-gradient(circle, color-mix(in srgb, var(--sky-deep) 22%, transparent) 1px, transparent 1.4px) 0 0 / 18px 18px,
+      #fffdf8;
+    border: 1px solid var(--rule);
+    box-shadow: 0 22px 40px -32px rgb(30 36 51 / 0.45);
+  }
+  .sketches { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 2.4rem 1.8rem; padding: 0; list-style: none; }
+  .sketch { position: relative; rotate: var(--tilt); transition: rotate 0.3s var(--ease), translate 0.3s var(--ease); }
+  .sketch:hover, .sketch:focus-within { rotate: 0deg; translate: 0 -3px; }
+  .sketch a { display: block; height: 100%; padding: 0.8rem 0.8rem 1.1rem; background: var(--white); color: var(--ink); text-decoration: none; box-shadow: 0 1px 2px rgb(30 36 51 / 0.08), 0 14px 24px -18px rgb(30 36 51 / 0.4); }
+  .sketch img, .sketch__blank { display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .sketch__blank { background: rgb(214 228 245 / 0.4); border: 1px dashed color-mix(in srgb, var(--sky) 45%, var(--ink-muted)); font-size: 0.85rem; color: var(--ink-muted); }
+  .sketch__stamp {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.2rem;
+    padding: 0.1rem 0.5rem;
+    border: 1.5px solid #b0475a;
+    border-radius: 3px;
+    background: rgb(255 253 249 / 0.85);
+    font-family: var(--font-pixel);
+    font-size: 0.75rem;
+    color: #a03d50;
+    rotate: 6deg;
+  }
+  .sketch h3 { margin-top: 0.9rem; font-size: var(--step-1); }
+  .sketch__meta { margin-top: 0.3rem; font-size: 0.85rem; color: var(--ink-muted); }
+  .sketch__summary { margin-top: 0.5rem; line-height: 1.5; }
+
+  .brewing { margin-top: 2.2rem; font-family: var(--font-name); font-style: italic; font-size: var(--step-1); color: var(--ink-soft); text-align: center; max-width: none; }
+  .brewing::before, .brewing::after { content: '☆'; margin: 0 0.6rem; font-style: normal; font-size: 0.8em; color: var(--sky-deep); }
+</style>

@@ -1,0 +1,232 @@
+/* ---------------------------------------------------------------
+   josietrinh.zip — design tokens + base styles
+   soft chalk pastels, pencil lines, a few sparkles.
+---------------------------------------------------------------- */
+
+/* rascal: self-hosted, licensed file supplied by josie. missing file = graceful fallback */
+@font-face {
+  font-family: 'Rascal';
+  src: url('/fonts/rascal.woff2') format('woff2'), url('/fonts/rascal.woff') format('woff'), url('/fonts/rascal.otf') format('opentype');
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* cream paper, navy ink, a sky full of pencil pastels */
+  --paper: #f6efe6;
+  --paper-2: #efe6da;
+  --white: #fffdf9;
+  --ink: #1e2433;        /* 13.6:1 on paper, 9:1 on sky */
+  --ink-soft: #4a5063;   /*  7.0:1 on paper */
+  --ink-muted: #5c6070;  /*  5.3:1 on paper */
+  --pencil: rgb(30 36 51 / 0.55);
+  --rule: rgb(30 36 51 / 0.18);
+
+  /* pastels */
+  --sky: #a9c9ec;
+  --sky-deep: #4f78b8;   /* white text on this is 4.3:1 */
+  --aqua: #bfe3dc;
+  --mint: #d8ece6;
+  --powder: #d6e4f5;
+  --lilac: #e1d8ef;
+  --periwinkle: #c4cdf0;
+  --blush: #f1d9d6;
+  --peach: #f4dccb;
+  --butter: #f5e9c4;
+  --sage: #b9c4a8;
+  --pistachio: #dfe6cf;
+  --olive: #a9a88f;
+  --blue-ink: #2f5f9e;   /* links, 5.7:1 on paper */
+  --cobalt: #2f5f9e;
+  --rose: #2f5f9e;
+  --navy: #2f5f9e;
+  --chrome: #e8e1d6;
+  --chrome-line: #a39e95;
+
+  /* type */
+  /* swap any of these to try another hand. options live on /style-guide */
+  --font-name: 'IM Fell English', 'EB Garamond', Georgia, serif;     /* names + captions, usually italic */
+  --font-display: 'IM Fell English', 'EB Garamond', Georgia, serif;  /* headings */
+  --font-body: 'EB Garamond', Georgia, serif;                 /* everything you read */
+  --font-pixel: 'DotGothic16', 'Courier New', monospace;      /* tiny pixel labels */
+  --font-serif: 'Fraunces Variable', Georgia, serif;         /* the odd italic flourish */
+  --font-type: 'Courier Prime', 'Courier New', monospace;    /* ticket stubs only */
+  --font-hand: 'Caveat Variable', 'Segoe Print', cursive;    /* margin scribbles */
+
+  --step--1: clamp(0.95rem, 0.92rem + 0.12vw, 1.02rem);
+  --step-0: clamp(1.1rem, 1.05rem + 0.22vw, 1.22rem);
+  --step-1: clamp(1.3rem, 1.2rem + 0.45vw, 1.55rem);
+  --step-2: clamp(1.9rem, 1.6rem + 1.3vw, 2.7rem);
+  --step-3: clamp(2.5rem, 2rem + 2.6vw, 4rem);
+  --step-4: clamp(2.6rem, 1.6rem + 5.4vw, 6.4rem);
+
+  /* space + shape */
+  --gutter: 16px;
+  --measure: 62ch;
+  --page: 1120px;
+  --radius: 18px;
+  --shadow-soft: 0 1px 2px rgb(31 29 28 / 0.05), 0 8px 24px -10px rgb(31 29 28 / 0.16);
+  --shadow-lift: 0 2px 3px rgb(31 29 28 / 0.06), 0 18px 36px -14px rgb(31 29 28 / 0.24);
+  --ease: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  /* cold-press paper: lit noise, so it reads as tooth, not dirt */
+  --paper-tex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='4' stitchTiles='stitch'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='1.4'%3E%3CfeDistantLight azimuth='45' elevation='58'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  /* colored-pencil strokes, for painted panels */
+  --pencil-tex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.02 .9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -2.4 1.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' transform='rotate(-32 120 120) scale(1.6)'/%3E%3C/svg%3E");
+  /* fine paper grain, tiled */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .11 0 0 0 0 .1 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (min-width: 720px) {
+  :root { --gutter: 32px; }
+}
+
+/* ---------- reset-ish ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+img, svg, video { display: block; max-width: 100%; height: auto; }
+button, input { font: inherit; color: inherit; }
+
+body {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--step-3); }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); }
+p { text-wrap: pretty; max-width: var(--measure); }
+
+/* the page itself: a soft pastel gradient wash with grain on top, fixed like a sheet of paper */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+body::before {
+  background:
+    radial-gradient(34% 28% at 90% 8%, color-mix(in srgb, var(--powder) 80%, transparent), transparent 70%),
+    radial-gradient(30% 26% at 6% 70%, color-mix(in srgb, var(--mint) 70%, transparent), transparent 70%),
+    var(--paper);
+  filter: blur(24px);
+  inset: -40px;
+}
+/* embossed watercolor-paper texture */
+body::after {
+  background-image: var(--paper-tex), var(--grain);
+  background-size: 360px, 220px;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+html[data-texture='soft'] body::after { opacity: 0.16; }
+html[data-texture='soft'] body::before { opacity: 0.5; }
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--cobalt);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+a:hover { color: var(--cobalt); }
+
+:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+::selection { background: var(--sky); color: var(--ink); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 50;
+  background: var(--ink); color: var(--white); padding: 0.5rem 0.9rem; border-radius: 999px;
+  font-size: var(--step--1); text-decoration: none;
+}
+.skip-link:focus { top: 12px; color: var(--white); }
+
+.wrap {
+  width: 100%;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* pencil-dashed divider between sections */
+.divider {
+  height: 0;
+  margin-block: clamp(3.5rem, 8vw, 5.5rem) 0;
+  border: 0;
+  border-top: 1.2px dashed var(--rule);
+}
+
+/* section heading: small hand-written kicker over a display title, centered */
+.section-head { text-align: center; margin-bottom: clamp(2rem, 5vw, 3rem); }
+.section-head p { margin-inline: auto; }
+.kicker {
+  font-family: var(--font-name);
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--blue-ink);
+}
+.section-head h2 { margin-top: 0.35rem; }
+.section-head .sub { margin-top: 0.7rem; color: var(--ink-soft); }
+
+.hand { font-family: var(--font-hand); font-weight: 500; line-height: 1.1; }
+
+/* ---------- motion ---------- */
+@keyframes wiggle {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: -8deg; }
+  50% { rotate: 6deg; }
+  75% { rotate: -3deg; }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 1; scale: 1; }
+  50% { opacity: 0.45; scale: 0.78; }
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+/* uses `translate` (not `transform`) so hover transforms still work afterwards */
+@keyframes settle {
+  from { opacity: 0; translate: 0 12px; }
+  to { opacity: 1; translate: 0 0; }
+}
+.settle { animation: settle 0.8s var(--ease) both; animation-delay: var(--delay, 0s); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

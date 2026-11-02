@@ -1,0 +1,96 @@
+---
+// a personal project: brief → insight → idea → execution → what i'd test → what i learned, from the markdown body.
+import { getCollection, render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import PhotoSlot from '../../../components/PhotoSlot.astro';
+
+export async function getStaticPaths() {
+  const all = await getCollection('personalProjects');
+  return all.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+const monthYear = d.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }).toLowerCase();
+---
+<Base title={d.title} description={`${d.title}: a self-initiated ${d.type} riffing on ${d.brand}. ${d.summary}`} texture="soft">
+  <article class="pp wrap">
+    <header class="head">
+      <a class="head__back" href="/work/#personal">← personal projects</a>
+      <p class="head__stamp">{d.status === 'mock' ? 'mock ☆ self-initiated' : 'in progress ☆ self-initiated'}</p>
+      <h1>{d.title}</h1>
+      <p class="head__meta">riffs on <strong>{d.brand}</strong><span>{d.type}</span><span>{monthYear}</span></p>
+      <p class="head__summary">{d.summary}</p>
+      <p class="head__disclaimer">not client work. any outcomes below are projected or hypothetical.</p>
+    </header>
+
+    {d.cover?.src && <div class="cover"><PhotoSlot src={d.cover.src} alt={d.cover.alt} ratio="16 / 9" eager /></div>}
+
+    <div class="prose"><Content /></div>
+
+    {d.gallery.length > 0 && (
+      <section class="sec" aria-labelledby="gallery-h">
+        <h2 id="gallery-h">gallery</h2>
+        <div class="gallery">
+          {d.gallery.map((g) => <PhotoSlot src={g.src} alt={g.alt} caption={g.caption} ratio={g.ratio} />)}
+        </div>
+      </section>
+    )}
+
+    {d.pdf && (
+      <section class="sec" aria-labelledby="deck-h">
+        <h2 id="deck-h">{d.pdf.title}</h2>
+        <object class="deck" data={d.pdf.src} type="application/pdf" aria-label={d.pdf.title}>
+          <p><a href={d.pdf.src}>open the pdf ↗</a></p>
+        </object>
+        <p class="deck__link"><a href={d.pdf.src} target="_blank" rel="noopener">open it full screen ↗</a></p>
+      </section>
+    )}
+
+    <p class="back"><a href="/work/#personal">← back to personal projects</a></p>
+  </article>
+</Base>
+
+<style>
+  .pp { max-width: 760px; padding-top: clamp(1.5rem, 4vw, 3rem); }
+  .head__back { display: block; width: fit-content; margin-bottom: 1.4rem; color: var(--ink-muted); text-decoration: none; }
+  .head__back:hover { color: var(--blue-ink); }
+  .head__stamp {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border: 1.5px solid #b0475a;
+    border-radius: 3px;
+    font-family: var(--font-pixel);
+    font-size: 0.78rem;
+    color: #a03d50;
+    rotate: -2deg;
+  }
+  .head h1 { margin-top: 0.8rem; font-size: clamp(2.6rem, 1.8rem + 3.5vw, 4.4rem); line-height: 1; }
+  .head__meta { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; margin-top: 0.9rem; max-width: none; color: var(--ink-muted); }
+  .head__meta strong { font-weight: 700; color: var(--ink); }
+  .head__summary { margin-top: 1rem; font-size: var(--step-1); line-height: 1.5; }
+  .head__disclaimer { margin-top: 0.8rem; font-size: 0.9rem; font-style: italic; color: var(--ink-muted); }
+
+  .cover { margin-top: 2rem; }
+
+  /* each ## heading in the markdown becomes a section */
+  .prose { margin-top: clamp(2rem, 5vw, 3rem); font-size: var(--step-0); line-height: 1.75; }
+  .prose :global(p) { max-width: none; }
+  .prose :global(h2) { display: flex; align-items: center; gap: 0.9rem; margin: 2.8rem 0 0.9rem; font-size: var(--step-2); }
+  .prose :global(h2::after) { content: ''; flex: 1; height: 1px; background: var(--rule); }
+  .prose :global(h2:first-child) { margin-top: 0; }
+  .prose :global(p + p) { margin-top: 1rem; }
+  .prose :global(ul) { padding-left: 1.2rem; display: grid; gap: 0.4rem; }
+  .prose :global(img) { width: 100%; margin-top: 1rem; }
+
+  .sec { margin-top: clamp(2.8rem, 6vw, 4rem); }
+  .sec > h2 { display: flex; align-items: center; gap: 0.9rem; font-size: var(--step-2); margin-bottom: 1.2rem; }
+  .sec > h2::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+  .gallery { display: grid; gap: 1rem; }
+  @media (min-width: 560px) { .gallery { grid-template-columns: 1fr 1fr; } }
+  .deck { display: block; width: 100%; aspect-ratio: 4 / 3; border: 1px solid var(--rule); background: var(--white); }
+  .deck__link { margin-top: 0.6rem; }
+  .deck__link a, .back a { color: var(--blue-ink); }
+  .back { margin-top: clamp(3rem, 7vw, 4.5rem); padding-top: 1.4rem; border-top: 1px solid var(--rule); }
+</style>

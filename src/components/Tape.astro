@@ -1,0 +1,17 @@
+---
+// a strip of washi tape. position it with `style` (top/left/right) from the parent.
+interface Props {
+  color?: 'blush' | 'peach' | 'butter' | 'pistachio' | 'sky' | 'lilac';
+  pattern?: 'plain' | 'dots' | 'stripes' | 'grid';
+  peel?: boolean;
+  rotate?: number;
+  width?: number;
+  style?: string;
+}
+const { color = 'blush', pattern = 'plain', peel = false, rotate = -4, width = 92, style = '' } = Astro.props;
+---
+<span
+  class:list={['tape', pattern !== 'plain' && `tape--${pattern}`, { 'tape--peel': peel }]}
+  style={`--tape-color:var(--${color});--r:${rotate}deg;--w:${width}px;${style}`}
+  aria-hidden="true"
+></span>

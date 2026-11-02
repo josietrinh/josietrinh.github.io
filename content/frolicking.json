@@ -1,0 +1,9 @@
+{
+  "_how_to": "hobbies and fun projects for the frolicking pinboard. add one object per item. photos go in public/images/frolicking/; leave photo empty for a marked placeholder. link is optional.",
+  "items": [
+    { "title": "[TODO: a hobby]", "photo": "", "alt": "[TODO: describe the photo]", "note": "[TODO: one line about it]", "link": "" },
+    { "title": "[TODO: a fun project]", "photo": "", "alt": "[TODO: describe the photo]", "note": "[TODO: one line about it]", "link": "" },
+    { "title": "[TODO: something you collect]", "photo": "", "alt": "[TODO: describe the photo]", "note": "[TODO: one line about it]", "link": "" },
+    { "title": "[TODO: a hobby]", "photo": "", "alt": "[TODO: describe the photo]", "note": "[TODO: one line about it]", "link": "" }
+  ]
+}

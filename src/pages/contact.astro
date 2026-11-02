@@ -1,0 +1,101 @@
+---
+// contact: a postcard. note on the left, address lines on the right, woodcut stamp in the corner.
+import Base from '../layouts/Base.astro';
+import site from '../../content/site.json';
+import { svg } from '../lib/motifs';
+---
+<Base title="contact" description={`get in touch with ${site.name}: email, linkedin, and x.`}>
+  <section class="contact wrap" aria-labelledby="contact-h">
+    <h1 id="contact-h">say hi</h1>
+
+    <article class="card" aria-label="postcard">
+      <div class="card__note">
+        <p class="card__dear">dear reader,</p>
+        <p>my inbox is open: roles, collabs, or just a hello.</p>
+        <p class="card__sign">— josie</p>
+      </div>
+
+      <div class="card__back">
+        <div class="card__top">
+          <span class="postmark" aria-hidden="true">josietrinh.zip<br />☆ est. 2005 ☆</span>
+          <span class="stamp" aria-hidden="true"><span class="stamp__art" set:html={svg('sparkle')} /></span>
+        </div>
+
+        <ul class="lines">
+          <li>
+            <span class="lines__label">email</span>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </li>
+          {site.links.map((l) => (
+            <li>
+              <span class="lines__label">{l.label}</span>
+              <a href={l.href} target="_blank" rel="noopener">{l.handle} ↗</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  </section>
+</Base>
+
+<style>
+  .contact { padding-top: clamp(2rem, 6vw, 4rem); }
+  .contact h1 { font-size: clamp(3rem, 2rem + 4vw, 5rem); line-height: 1; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+
+  /* the postcard */
+  .card {
+    display: grid;
+    max-width: 860px;
+    background: #fffdf8;
+    border: 1px solid color-mix(in srgb, var(--sky) 40%, var(--ink-muted));
+    box-shadow: 0 1px 2px rgb(30 36 51 / 0.06), 0 22px 40px -28px rgb(30 36 51 / 0.45);
+    rotate: -0.6deg;
+  }
+  @media (min-width: 720px) { .card { grid-template-columns: 1fr 1fr; min-height: 380px; } }
+
+  .card__note, .card__back { padding: clamp(1.4rem, 4vw, 2.4rem); }
+  .card__note { display: flex; flex-direction: column; gap: 0.8rem; font-size: var(--step-1); line-height: 1.5; }
+  .card__dear { font-family: var(--font-name); font-style: italic; color: var(--ink-muted); }
+  .card__sign { margin-top: auto; font-family: var(--font-name); font-style: italic; }
+
+  /* divider line down the middle, like the back of a real postcard */
+  .card__back { display: flex; flex-direction: column; gap: 1.6rem; border-top: 1px dashed var(--rule); }
+  @media (min-width: 720px) { .card__back { border-top: 0; border-left: 1px solid var(--rule); } }
+
+  .card__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+  .postmark {
+    display: grid;
+    place-items: center;
+    width: 6.2rem;
+    aspect-ratio: 1;
+    border: 1.5px solid color-mix(in srgb, var(--sky-deep) 55%, transparent);
+    border-radius: 50%;
+    font-family: var(--font-pixel);
+    font-size: 0.62rem;
+    line-height: 1.5;
+    text-align: center;
+    color: color-mix(in srgb, var(--sky-deep) 75%, var(--ink));
+    rotate: -12deg;
+  }
+  .stamp {
+    flex: none;
+    width: 5.2rem;
+    aspect-ratio: 4 / 5;
+    padding: 0.35rem;
+    background: #f5ead0;
+    /* perforated edge: dots in the card's colour read as punched holes */
+    border: 0.3rem dotted #fffdf8;
+    box-shadow: 0 2px 6px -3px rgb(30 36 51 / 0.35);
+    rotate: 3deg;
+  }
+  .stamp__art { display: block; width: 100%; height: 100%; background: #8fb0dc; }
+  .stamp__art :global(svg) { width: 100%; height: 100%; }
+  .stamp__art :global(.m) { fill: #f5ead0; stroke: #f5ead0; }
+
+  /* address lines */
+  .lines { display: grid; gap: 0; margin-top: auto; padding: 0; list-style: none; }
+  .lines li { display: grid; gap: 0.1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--rule); }
+  .lines__label { font-family: var(--font-pixel); font-size: 0.72rem; color: var(--ink-muted); }
+  .lines a { font-size: var(--step-1); color: var(--ink); text-decoration-color: var(--sky); overflow-wrap: anywhere; }
+  .lines a:hover { color: var(--blue-ink); text-decoration-color: currentColor; }
+</style>

@@ -1,0 +1,415 @@
+/* ---------------------------------------------------------------
+   reusable scrapbook bits. markup lives in src/components/*.astro
+---------------------------------------------------------------- */
+
+/* ---------- chalk patch: soft crayon fill, rough edges (see #chalk filter in Base) ---------- */
+.chalk {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(1.4rem, 3vw, 2rem);
+}
+.chalk::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--c, var(--blush));
+  border-radius: var(--shape, 28px 34px 30px 26px / 30px 26px 34px 28px);
+  filter: url(#chalk);
+}
+.chalk--oval { --shape: 50% 50% 48% 52% / 55% 50% 50% 45%; }
+
+/* loose pencil line drawn around something, slightly off-register */
+.pencil {
+  position: absolute;
+  top: var(--pi, -7px);
+  left: var(--pi, -7px);
+  width: calc(100% - 2 * var(--pi, -7px));
+  height: calc(100% - 2 * var(--pi, -7px));
+  rotate: -0.8deg;
+  translate: 3px 2px;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+.pencil path {
+  fill: none;
+  stroke: var(--pencil);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---------- washi tape ---------- */
+.tape {
+  position: absolute;
+  z-index: 3;
+  width: var(--w, 92px);
+  height: 24px;
+  background-color: color-mix(in srgb, var(--tape-color, var(--blush)) 80%, transparent);
+  background-image: var(--tape-pattern, none);
+  clip-path: polygon(
+    0 10%, 3% 0, 6% 8%, 9% 0, 12% 5%, 88% 4%, 91% 0, 94% 9%, 97% 0, 100% 8%,
+    100% 92%, 97% 100%, 94% 91%, 91% 100%, 88% 95%, 12% 96%, 9% 100%, 6% 92%, 3% 100%, 0 90%
+  );
+  transform: rotate(var(--r, -4deg));
+  transform-origin: 85% 50%;
+  transition: transform 0.4s var(--ease), filter 0.4s;
+  pointer-events: none;
+}
+.tape--dots { --tape-pattern: radial-gradient(circle, rgb(255 255 255 / 0.75) 1.6px, transparent 2px); background-size: 9px 9px; }
+.tape--stripes { --tape-pattern: repeating-linear-gradient(90deg, rgb(255 255 255 / 0.55) 0 4px, transparent 4px 10px); }
+.tape--grid { --tape-pattern: linear-gradient(rgb(255 255 255 / 0.5) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.5) 1px, transparent 1px); background-size: 7px 7px; }
+.peel-host:hover .tape--peel,
+.peel-host:focus-within .tape--peel {
+  transform: rotate(calc(var(--r, -4deg) - 13deg)) translate(-4px, -9px) scaleX(0.97);
+  filter: drop-shadow(0 6px 4px rgb(31 29 28 / 0.15));
+}
+
+/* ---------- polaroid ---------- */
+.polaroid {
+  --tilt: -2deg;
+  position: relative;
+  display: inline-block;
+  width: var(--pw, 240px);
+  max-width: 100%;
+  padding: 10px 10px 0;
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+  transform: rotate(var(--tilt));
+  transition: transform 0.35s var(--ease), box-shadow 0.35s;
+}
+.polaroid:hover { transform: rotate(calc(var(--tilt) * 0.4)) translateY(-3px); box-shadow: var(--shadow-lift); }
+.polaroid img, .polaroid__blank {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.polaroid__blank {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: radial-gradient(120% 90% at 30% 20%, var(--lilac), transparent 60%), radial-gradient(100% 80% at 80% 90%, var(--blush), transparent 60%), var(--sky);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.polaroid figcaption {
+  padding: 0.55rem 0.2rem 0.75rem;
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  line-height: 1.1;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.polaroid .tape { top: -12px; left: calc(50% - var(--w, 92px) / 2); }
+
+/* ---------- tag (what a thing is: mock, self-initiated, hypothetical) ---------- */
+.tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.22rem 0.85rem 0.24rem 0.7rem;
+  background: var(--tag-color, var(--butter));
+  border-radius: 999px 999px 999px 999px / 999px 999px 999px 999px;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.tag::after {
+  /* pencil outline, slightly off */
+  content: '';
+  position: absolute;
+  inset: -3px -2px -2px -4px;
+  border: 1.2px solid var(--pencil);
+  border-radius: 999px;
+  transform: rotate(-1.5deg);
+  pointer-events: none;
+}
+.tag svg { width: 0.85em; height: 0.85em; }
+
+/* ---------- metric ---------- */
+.metric {
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  text-align: center;
+  justify-items: center;
+}
+.metric__value {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.6rem + 1.3vw, 2.7rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.metric__what { line-height: 1.25; max-width: 18ch; }
+.metric__where { font-family: var(--font-hand); font-size: 1.25rem; line-height: 1; color: var(--ink-soft); }
+
+/* ---------- buttons: words in a hand-drawn oval ---------- */
+.btn {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+  min-height: 48px;
+  padding: 0.55rem 1.6rem;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+.btn::before,
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1.4px solid var(--ink);
+  border-radius: 50% 48% 52% 47% / 56% 50% 50% 44%;
+  transform: rotate(-2deg);
+  transition: transform 0.35s var(--ease);
+}
+.btn::after {
+  /* second, looser pass of the pencil */
+  inset: 2px -3px -1px 1px;
+  border-width: 1px;
+  border-color: var(--pencil);
+  transform: rotate(1.5deg);
+}
+.btn:hover { color: var(--ink); }
+.btn:hover::before { transform: rotate(1deg) scale(1.03); }
+.btn:hover::after { transform: rotate(-2deg) scale(1.02); }
+.btn--fill::before { background: var(--butter); z-index: -1; }
+.btn--fill:hover::before { background: var(--peach); }
+.btn__spark { width: 0.7em; height: 0.7em; transition: rotate 0.4s var(--ease); }
+.btn:hover .btn__spark { rotate: 90deg; }
+
+/* text link with a hand-drawn underline */
+.link-hand {
+  position: relative;
+  padding-bottom: 0.25em;
+  text-decoration: none;
+}
+.link-hand::after {
+  content: '';
+  position: absolute;
+  left: -2px; right: -2px; bottom: 0;
+  height: 7px;
+  background: var(--rose);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.5 C 20 2, 45 6, 60 3.5 S 90 2.5, 99 4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 0 0 / 100% 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.5 C 20 2, 45 6, 60 3.5 S 90 2.5, 99 4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 0 0 / 100% 100%;
+}
+
+/* ---------- doodles + sparkles ---------- */
+.sparkle {
+  position: absolute;
+  width: var(--s, 22px);
+  height: var(--s, 22px);
+  color: var(--sc, var(--rose));
+  pointer-events: none;
+}
+.sparkle--twinkle { animation: twinkle 3.2s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.doodle {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+}
+.doodle path {
+  fill: none;
+  stroke: var(--dc, var(--pencil));
+  stroke-width: var(--dw, 1.4);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.doodle--draw path {
+  stroke-dasharray: var(--len, 1200);
+  stroke-dashoffset: var(--len, 1200);
+  animation: draw 2.4s ease-out forwards;
+  animation-delay: var(--delay, 0.3s);
+}
+.star-sep { color: var(--rose); padding-inline: 0.5em; font-size: 0.85em; }
+
+/* ---------- sticky note ---------- */
+.note {
+  --tilt: -2deg;
+  position: relative;
+  display: block;
+  padding: 1.1rem 1.1rem 1.25rem;
+  background: var(--note-color, var(--butter));
+  background-image: linear-gradient(170deg, rgb(255 255 255 / 0.35), transparent 45%);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.15;
+  transform: rotate(var(--tilt));
+  box-shadow: 0 1px 1px rgb(31 29 28 / 0.08), 2px 10px 14px -10px rgb(31 29 28 / 0.35);
+  /* a slight curl at the bottom-right corner */
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 94% 100%, 0 100%);
+}
+.note p { max-width: none; }
+
+/* ---------- photo print (pinned, white border, caption underneath) ---------- */
+.print {
+  --tilt: 0deg;
+  position: relative;
+  display: block;
+  padding: 10px 10px 0;
+  background: var(--white);
+  box-shadow: 0 1px 2px rgb(31 29 28 / 0.08), 0 10px 22px -12px rgb(31 29 28 / 0.32);
+  color: var(--ink);
+  text-decoration: none;
+  transform: rotate(var(--tilt));
+  transition: transform 0.35s var(--ease), box-shadow 0.35s;
+}
+a.print:hover { color: var(--ink); transform: rotate(0deg) translateY(-4px); box-shadow: 0 2px 3px rgb(31 29 28 / 0.08), 0 20px 34px -14px rgb(31 29 28 / 0.38); }
+.print__img { aspect-ratio: 4 / 3; overflow: hidden; }
+.print__img img { width: 100%; height: 100%; object-fit: cover; }
+.print__cap { padding: 0.7rem 0.3rem 0.85rem; }
+
+/* ---------- ticket stub ---------- */
+.ticket {
+  --tilt: 6deg;
+  position: relative;
+  display: inline-grid;
+  justify-items: center;
+  gap: 0.1rem;
+  padding: 0.7rem 1.4rem 0.75rem;
+  background: var(--peach);
+  color: var(--ink);
+  font-family: var(--font-type);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: lowercase;
+  transform: rotate(var(--tilt));
+  box-shadow: 0 1px 1px rgb(31 29 28 / 0.08), 0 8px 14px -8px rgb(31 29 28 / 0.3);
+  /* punched half-circles on the short sides */
+  -webkit-mask: radial-gradient(circle 9px at 0 50%, #0000 98%, #000) 0 0 / 51% 100% no-repeat, radial-gradient(circle 9px at 100% 50%, #0000 98%, #000) 100% 0 / 51% 100% no-repeat;
+  mask: radial-gradient(circle 9px at 0 50%, #0000 98%, #000) 0 0 / 51% 100% no-repeat, radial-gradient(circle 9px at 100% 50%, #0000 98%, #000) 100% 0 / 51% 100% no-repeat;
+}
+.ticket strong { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.02em; line-height: 1; }
+.ticket::before { content: ''; position: absolute; inset: 5px 14px; border: 1px dashed rgb(31 29 28 / 0.4); pointer-events: none; }
+
+/* ---------- draggable scraps (desk) ---------- */
+.scrap { position: relative; }
+.scrap--draggable { cursor: grab; touch-action: none; user-select: none; }
+.scrap--draggable.is-dragging { cursor: grabbing; z-index: 50 !important; }
+.scrap--draggable.is-dragging > * { filter: drop-shadow(0 18px 18px rgb(31 29 28 / 0.22)); }
+
+/* ---------- retro window ---------- */
+.win {
+  position: relative;
+  background: var(--chrome);
+  border: 1px solid var(--chrome-line);
+  box-shadow: inset 1px 1px 0 var(--white), inset -1px -1px 0 #b9b8b5, 0 18px 40px -24px rgb(20 20 20 / 0.35);
+  padding: 3px;
+  font-family: var(--font-body);
+}
+.win--inner { box-shadow: inset 1px 1px 0 var(--white), inset -1px -1px 0 #b9b8b5, 6px 8px 0 -2px rgb(20 20 20 / 0.08); }
+.win__bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0.3rem 0.2rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.win__grip { height: 9px; background: repeating-linear-gradient(transparent 0 2px, var(--chrome-line) 2px 3px); opacity: 0.6; }
+.win__title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.win__btns { display: flex; justify-content: flex-end; gap: 3px; }
+.win__btns span {
+  display: grid; place-items: center; width: 18px; height: 16px;
+  background: var(--chrome); border: 1px solid var(--chrome-line);
+  box-shadow: inset 1px 1px 0 var(--white); font-size: 0.65rem; line-height: 1;
+}
+.win__menu {
+  display: flex; gap: 1.6rem; padding: 0.15rem 0.7rem; font-size: 0.8rem;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted);
+  border-bottom: 1px solid var(--chrome-line);
+}
+.win__body {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--chrome-line);
+  box-shadow: inset 1px 1px 0 #cfcecb;
+}
+.win__status {
+  display: flex; gap: 3px; margin-top: 3px; font-size: 0.8rem; color: var(--ink-muted);
+}
+.win__status span { padding: 0.05rem 0.5rem; border: 1px solid var(--chrome-line); box-shadow: inset 1px 1px 0 #cfcecb; background: var(--chrome); }
+.win__path { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.win__page { flex: none; }
+
+/* ---------- caption strip (italic label, pastel fill, inked edge) ---------- */
+.caption {
+  display: inline-block;
+  max-width: none;
+  padding: 0.3em 0.85em 0.35em;
+  background: var(--cap, var(--mint));
+  background-image: var(--grain);
+  /* a soft edge in a deeper shade of the label's own colour, not black */
+  border: 1px solid color-mix(in srgb, var(--cap, var(--mint)) 45%, var(--ink-muted));
+  font-family: var(--font-name);
+  font-style: italic;
+  font-size: var(--step-1);
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+/* ---------- painted panel (colored pencil on paper, inked border) ---------- */
+.panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1.5px solid var(--ink);
+  background: var(--panel-bg, linear-gradient(160deg, var(--aqua), var(--sky)));
+}
+.panel::before {
+  /* pencil strokes */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--pencil-tex);
+  background-size: 240px;
+  opacity: 0.55;
+  mix-blend-mode: soft-light;
+}
+.panel::after {
+  /* paper tooth showing through */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--paper-tex), var(--grain);
+  background-size: 360px, 200px;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+/* a soft starburst glow you can drop into a panel */
+.burst {
+  position: absolute;
+  z-index: -1;
+  width: var(--bs, 60%);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  background:
+    radial-gradient(circle, #fff 0 6%, rgb(255 255 255 / 0.85) 10%, rgb(255 255 255 / 0.25) 30%, transparent 62%),
+    conic-gradient(from 0deg, transparent 0 4deg, rgb(255 255 255 / 0.55) 5deg 6deg, transparent 7deg 41deg, rgb(255 255 255 / 0.4) 42deg 43deg, transparent 44deg 88deg, rgb(255 255 255 / 0.55) 89deg 91deg, transparent 92deg 134deg, rgb(255 255 255 / 0.4) 135deg 136deg, transparent 137deg 179deg, rgb(255 255 255 / 0.55) 180deg 182deg, transparent 183deg 224deg, rgb(255 255 255 / 0.4) 225deg 226deg, transparent 227deg 269deg, rgb(255 255 255 / 0.55) 270deg 272deg, transparent 273deg 314deg, rgb(255 255 255 / 0.4) 315deg 316deg, transparent 317deg);
+  -webkit-mask: radial-gradient(circle, #000 20%, transparent 70%);
+  mask: radial-gradient(circle, #000 20%, transparent 70%);
+  pointer-events: none;
+}
+.glass-star { position: absolute; filter: drop-shadow(0 6px 8px rgb(30 36 51 / 0.15)); pointer-events: none; }

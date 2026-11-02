@@ -1,0 +1,17 @@
+---
+// a headline number on a chalk patch: what it is, and where it happened.
+import Chalk from './Chalk.astro';
+interface Props {
+  value: string;
+  what: string;
+  where: string;
+  color?: 'blush' | 'peach' | 'butter' | 'pistachio' | 'sky' | 'lilac';
+  outline?: 'oval' | 'rect' | 'loop';
+}
+const { value, what, where, color = 'blush', outline = 'oval' } = Astro.props;
+---
+<Chalk color={color} outline={outline} class="metric">
+  <span class="metric__value">{value}</span>
+  <span class="metric__what">{what}</span>
+  <span class="metric__where">@ {where}</span>
+</Chalk>

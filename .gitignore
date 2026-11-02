@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+# raw notion export, not used by the site
+content/*.zip
+originals/
+
+# inspiration screenshots, kept local only
+references/
+cachedImage.PNG

@@ -1,0 +1,19 @@
+---
+// a sticky note, held up by a strip of tape.
+import Tape from './Tape.astro';
+type Pastel = 'blush' | 'peach' | 'butter' | 'pistachio' | 'sky' | 'lilac';
+interface Props {
+  color?: Pastel;
+  tilt?: number;
+  tape?: Pastel | false;
+  class?: string;
+  style?: string;
+  as?: string;
+}
+const { color = 'butter', tilt = -2, tape = 'sky', class: extra, style = '', as = 'div' } = Astro.props;
+const Tag = as;
+---
+<Tag class:list={['note', extra]} style={`--note-color:var(--${color});--tilt:${tilt}deg;${style}`}>
+  {tape && <Tape color={tape} pattern="grid" rotate={tilt > 0 ? -5 : 4} width={58} style="top:-11px;left:calc(50% - 29px)" />}
+  <slot />
+</Tag>
