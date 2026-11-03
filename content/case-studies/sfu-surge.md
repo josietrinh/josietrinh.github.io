@@ -92,6 +92,13 @@ campaigns:
         label: video
       - href: https://www.instagram.com/p/DblsO_EBa6M/
         label: video
+learnings:
+  - title: "[TODO: learning title]"
+    text: "[TODO: a sentence or two on what you learned]"
+  - title: "[TODO: learning title]"
+    text: "[TODO: a sentence or two on what you learned]"
+  - title: "[TODO: learning title]"
+    text: "[TODO: a sentence or two on what you learned]"
 skills:
   - integrated marketing
   - campaign planning

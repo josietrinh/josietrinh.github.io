@@ -50,6 +50,8 @@ const caseStudies = defineCollection({
       }),
     ),
     campaigns: z.array(campaign).default([]),
+    // what the role taught me; each one is a short title plus a sentence or two
+    learnings: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
     skills: z.array(z.string()),
     tools: z.array(z.string()),
   }),

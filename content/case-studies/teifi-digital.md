@@ -11,6 +11,8 @@ cover:
 glance:
   - label: role
     value: product marketing intern
+  - label: product
+    value: WorkMate x Shopify POS, BikeSync
   - label: timeline
     value: may 6, 2025 – apr 17, 2026
   - label: focus
@@ -64,6 +66,13 @@ projects:
     photos:
       - alt: "[TODO: a sales one-pager or webinar asset]"
       - alt: "[TODO: the bicycle retailer press release]"
+learnings:
+  - title: "[TODO: learning title]"
+    text: "[TODO: a sentence or two on what you learned]"
+  - title: "[TODO: learning title]"
+    text: "[TODO: a sentence or two on what you learned]"
+  - title: "[TODO: learning title]"
+    text: "[TODO: a sentence or two on what you learned]"
 skills:
   - go-to-market planning
   - positioning & messaging

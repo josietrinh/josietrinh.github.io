@@ -52,6 +52,13 @@ projects:
       - text: developed promotional materials with developers, live-game, and monetization teams.
     outcome: content production efficiency increased by 25%.
     contactForMore: true
+learnings:
+  - title: "[TODO: learning title]"
+    text: "[TODO: a sentence or two on what you learned]"
+  - title: "[TODO: learning title]"
+    text: "[TODO: a sentence or two on what you learned]"
+  - title: "[TODO: learning title]"
+    text: "[TODO: a sentence or two on what you learned]"
 skills:
   - campaign coordination
   - marketing operations

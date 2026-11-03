@@ -2,13 +2,10 @@
 // work: professional case studies (woodcut folders) and personal projects (a sketchbook page).
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import Caption from '../../components/Caption.astro';
 import Tape from '../../components/Tape.astro';
-import site from '../../../content/site.json';
 import { svg } from '../../lib/motifs';
 
 const studies = (await getCollection('caseStudies')).sort((a, b) => a.data.order - b.data.order);
-const metricsFor = (slug: string) => site.work.find((w) => w.slug === slug)?.metrics ?? [];
 
 // newest first
 const projects = (await getCollection('personalProjects')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -35,12 +32,9 @@ const tapes = ['lilac', 'butter', 'sky', 'pistachio'] as const;
               <span class="case__tile" aria-hidden="true" set:html={svg(s.data.motif)} />
               <div class="case__body">
                 <p class="case__n">case study {String(i + 1).padStart(2, '0')}</p>
-                <Caption color="var(--lilac)" as="h3" class="case__co">{s.data.company}</Caption>
+                <h3 class="case__co">{s.data.company}</h3>
                 <p class="case__role"><strong>{s.data.role}</strong><span>{s.data.dates}</span></p>
                 <p class="case__focus">{s.data.focus}</p>
-                <ul class="stamps" aria-label="highlights">
-                  {metricsFor(s.id).map((m, j) => <li style={`--r:${j % 2 ? 1.5 : -2}deg`}>{m}</li>)}
-                </ul>
                 <span class="case__more">read the case study →</span>
               </div>
             </a>
@@ -110,27 +104,13 @@ const tapes = ['lilac', 'butter', 'sky', 'pistachio'] as const;
   .case__tile :global(.m) { fill: #dcd6ec; stroke: #dcd6ec; }
   .case:hover .case__tile, .case:focus-visible .case__tile { transform: translateY(-4px) rotate(-1deg); }
   .case__n { font-family: var(--font-pixel); font-size: 0.78rem; color: var(--blue-ink); }
-  :global(.case__co) { margin-top: 0.4rem; font-size: var(--step-2); }
+  .case__co { margin-top: 0.4rem; font-family: var(--font-name); font-style: italic; font-weight: 400; font-size: var(--step-2); line-height: 1.1; }
   .case__role { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.9rem; margin-top: 0.8rem; max-width: none; }
   .case__role strong { font-weight: 700; }
   .case__role span { color: var(--ink-muted); font-size: var(--step--1); }
   .case__focus { margin-top: 0.4rem; color: var(--ink-soft); }
   .case__more { display: inline-block; margin-top: 1rem; color: var(--blue-ink); text-decoration: underline; text-decoration-color: var(--sky); text-underline-offset: 0.2em; }
   .case:hover .case__more { text-decoration-color: currentColor; }
-
-  /* key metrics, inked on like rubber stamps */
-  .stamps { display: flex; flex-wrap: wrap; gap: 0.6rem 0.8rem; margin-top: 1rem; padding: 0; list-style: none; }
-  .stamps li {
-    padding: 0.25rem 0.6rem;
-    border: 1.5px solid color-mix(in srgb, var(--blue-ink) 70%, transparent);
-    outline: 1px solid color-mix(in srgb, var(--blue-ink) 35%, transparent);
-    outline-offset: 2px;
-    border-radius: 3px;
-    font-family: var(--font-pixel);
-    font-size: 0.82rem;
-    color: var(--blue-ink);
-    rotate: var(--r);
-  }
 
   /* personal: a dotted sketchbook page with taped-in cards */
   .mine__intro { margin-bottom: 1.6rem; color: var(--ink-soft); }

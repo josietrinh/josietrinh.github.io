@@ -1,8 +1,7 @@
 ---
-// contact: a postcard. note on the left, address lines on the right, woodcut stamp in the corner.
+// contact: a postcard. note on the left, address lines on the right.
 import Base from '../layouts/Base.astro';
 import site from '../../content/site.json';
-import { svg } from '../lib/motifs';
 ---
 <Base title="contact" description={`get in touch with ${site.name}: email, linkedin, and x.`}>
   <section class="contact wrap" aria-labelledby="contact-h">
@@ -16,11 +15,6 @@ import { svg } from '../lib/motifs';
       </div>
 
       <div class="card__back">
-        <div class="card__top">
-          <span class="postmark" aria-hidden="true">josietrinh.zip<br />☆ est. 2005 ☆</span>
-          <span class="stamp" aria-hidden="true"><span class="stamp__art" set:html={svg('sparkle')} /></span>
-        </div>
-
         <ul class="lines">
           <li>
             <span class="lines__label">email</span>
@@ -61,36 +55,6 @@ import { svg } from '../lib/motifs';
   /* divider line down the middle, like the back of a real postcard */
   .card__back { display: flex; flex-direction: column; gap: 1.6rem; border-top: 1px dashed var(--rule); }
   @media (min-width: 720px) { .card__back { border-top: 0; border-left: 1px solid var(--rule); } }
-
-  .card__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
-  .postmark {
-    display: grid;
-    place-items: center;
-    width: 6.2rem;
-    aspect-ratio: 1;
-    border: 1.5px solid color-mix(in srgb, var(--sky-deep) 55%, transparent);
-    border-radius: 50%;
-    font-family: var(--font-pixel);
-    font-size: 0.62rem;
-    line-height: 1.5;
-    text-align: center;
-    color: color-mix(in srgb, var(--sky-deep) 75%, var(--ink));
-    rotate: -12deg;
-  }
-  .stamp {
-    flex: none;
-    width: 5.2rem;
-    aspect-ratio: 4 / 5;
-    padding: 0.35rem;
-    background: #f5ead0;
-    /* perforated edge: dots in the card's colour read as punched holes */
-    border: 0.3rem dotted #fffdf8;
-    box-shadow: 0 2px 6px -3px rgb(30 36 51 / 0.35);
-    rotate: 3deg;
-  }
-  .stamp__art { display: block; width: 100%; height: 100%; background: #8fb0dc; }
-  .stamp__art :global(svg) { width: 100%; height: 100%; }
-  .stamp__art :global(.m) { fill: #f5ead0; stroke: #f5ead0; }
 
   /* address lines */
   .lines { display: grid; gap: 0; margin-top: auto; padding: 0; list-style: none; }
