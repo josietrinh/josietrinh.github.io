@@ -67,12 +67,8 @@ projects:
       - alt: "[TODO: a sales one-pager or webinar asset]"
       - alt: "[TODO: the bicycle retailer press release]"
 learnings:
-  - title: "[TODO: learning title]"
-    text: "[TODO: a sentence or two on what you learned]"
-  - title: "[TODO: learning title]"
-    text: "[TODO: a sentence or two on what you learned]"
-  - title: "[TODO: learning title]"
-    text: "[TODO: a sentence or two on what you learned]"
+  - title: "your job title isn’t your limit"
+    text: "joining as an intern, i initially focused on completing deliverables without questioning the work further. working in a fast-paced startup environment, however, has taught me to ask better questions and propose new ideas that help the team move forward faster. i would ask myself, “what is stopping my team from moving at a faster pace, and how can i, as part of the marketing team, unblock that?” this has led me to conduct research and work closely with the product team, establishing a full product tiering guide. i picked up so much product understanding, working with development cycles, and project management, which wouldn’t have happened if i only stayed with my deliverables."
 skills:
   - go-to-market planning
   - positioning & messaging

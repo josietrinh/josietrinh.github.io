@@ -53,12 +53,10 @@ projects:
     outcome: content production efficiency increased by 25%.
     contactForMore: true
 learnings:
-  - title: "[TODO: learning title]"
-    text: "[TODO: a sentence or two on what you learned]"
-  - title: "[TODO: learning title]"
-    text: "[TODO: a sentence or two on what you learned]"
-  - title: "[TODO: learning title]"
-    text: "[TODO: a sentence or two on what you learned]"
+  - title: "there is so much more to game marketing than just marketing"
+    text: "being a curious gamer myself, it was fascinating and truly a privilege to work with the game development team to bring their vision and craft to a wider audience. it’s not just about what would look the best, but also what the audience would care about: “which champion is OP in-game so we can put them in the front & centre?” “what would each PRG (progression level) look for?” working on MCoC gave me the chance to dive deeper into the process of game development and take a closer look at how each game build is shipped."
+  - title: "there is a community for anyone and everyone; just be yourself!"
+    text: "as the only marketing intern in the summer, i didn’t think of it as a scary thing, but rather as a chance to learn about the people around me! i was fortunate enough to go to work with excitement every day. never have i thought about running an intense world cup betting, to late-night ARAM runs with my colleagues. age and experience were never an excuse for me to shy away from learning and bonding with the people i spend my week with."
 skills:
   - campaign coordination
   - marketing operations
