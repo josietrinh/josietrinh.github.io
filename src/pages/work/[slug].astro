@@ -18,6 +18,8 @@ const { entry, prev, next, index } = Astro.props;
 const d = entry.data;
 const { Content } = await render(entry);
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+// lets a project's text carry [markdown links](https://...)
+const links = (s: string) => s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
 ---
 <Base title={d.company} description={`${d.company}: ${d.focus}. a case study by josie trinh.`} texture="soft">
   <div class="cs wrap">
@@ -78,7 +80,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
             <h3 id={`${slug(p.title)}-h`}>{p.title}</h3>
             {p.scope && <p class="proj__scope">{p.scope}</p>}
 
-            {p.problem && (<div class="proj__block"><p class="proj__label">{p.problemLabel}</p><p>{p.problem}</p></div>)}
+            {p.problem && (<div class="proj__block"><p class="proj__label">{p.problemLabel}</p><p set:html={links(p.problem)} /></div>)}
             {p.approach && (<div class="proj__block"><p class="proj__label">{p.approachLabel}</p><p>{p.approach}</p></div>)}
 
             {p.points.length > 0 && (
@@ -102,7 +104,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
                 {p.photos.map((ph) => <PhotoSlot src={ph.src} alt={ph.alt} caption={ph.caption} ratio={ph.ratio} />)}
               </div>
             )}
-            {p.contactForMore && <p class="proj__more">(<a href="/contact/">reach out</a> for more information)</p>}
+            {p.contactForMore && <p class="proj__more">→ <a href="/contact/">reach out</a> for more information!</p>}
           </article>
         ))}
       </section>
@@ -278,6 +280,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
   .proj__block { margin-top: 1.1rem; }
   .proj__label { margin-bottom: 0.2rem; font-family: var(--font-name); font-style: italic; font-size: 1.1rem; color: var(--ink-muted); }
   .proj__block p:not(.proj__label) { line-height: 1.7; }
+  .proj__block p a { color: var(--blue-ink); }
   .proj__points { margin-top: 1.1rem; padding-left: 1.2rem; display: grid; gap: 0.55rem; line-height: 1.6; }
   .proj__points li::marker { content: '✦  '; color: var(--sky-deep); font-size: 0.8em; }
   .proj__points strong { font-weight: 700; }

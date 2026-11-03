@@ -7,6 +7,7 @@ date: 2026-11-01
 type: campaign # campaign | positioning | content | design
 summary: the one-line concept.
 status: mock # mock | in-progress
+context: self-initiated # shown on the stamp, e.g. group project
 cover:
   src: /images/personal/my-campaign/cover.jpg
   alt: describe the cover image

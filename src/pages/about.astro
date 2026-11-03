@@ -1,26 +1,19 @@
 ---
-// about: one quiet column. a few small polaroids, the blurb, experience, what i'm up to, then the year's playlist.
+// about: one quiet column. a big polaroid, the blurb, experience, what i'm up to, then the year's playlist.
 import Base from '../layouts/Base.astro';
 import site from '../../content/site.json';
 import about from '../../content/about.json';
 import { svg } from '../lib/motifs';
 
-const tilts = [-6, 3, -2];
 const motifs = ['sparkle', 'waves', 'stars'];
 ---
 <Base title="about" description={`about ${site.name}: ${site.bio.text}.`}>
   <div class="about wrap">
     <h1 class="sr-only">about</h1>
 
-    <div class="snaps">
-      {about.photos.map((ph, i) => (
-        <figure class="snap" style={`--tilt:${tilts[i % tilts.length]}deg`}>
-          {ph.src
-            ? <img src={ph.src} alt={ph.alt} loading="lazy" decoding="async" />
-            : <div class="snap__blank" role="img" aria-label={ph.alt}><span>{ph.alt}</span></div>}
-        </figure>
-      ))}
-    </div>
+    <figure class="snap">
+      <img src={about.photo.src} alt={about.photo.alt} decoding="async" />
+    </figure>
 
     <section class="intro" aria-label="intro">
       <p class="intro__lead">{site.bio.text}.</p>
@@ -70,24 +63,20 @@ const motifs = ['sparkle', 'waves', 'stars'];
   .about { max-width: calc(560px + 2 * var(--gutter)); padding-top: clamp(2rem, 6vw, 4rem); }
   .about p { max-width: none; }
 
-  /* a little fan of small polaroids, like keepsakes on a desk */
-  .snaps { display: flex; padding-left: 0.4rem; }
+  /* one big polaroid; the crop keeps the face + the plate and drops the sign above */
   .snap {
-    width: 104px;
+    width: min(100%, 380px);
     margin: 0;
-    padding: 6px 6px 16px;
+    padding: 12px 12px 40px;
     background: var(--white);
-    box-shadow: 0 1px 2px rgb(30 36 51 / 0.08), 0 12px 20px -14px rgb(30 36 51 / 0.45);
-    rotate: var(--tilt);
+    box-shadow: 0 1px 2px rgb(30 36 51 / 0.08), 0 20px 32px -20px rgb(30 36 51 / 0.45);
+    rotate: -1.5deg;
     transition: rotate 0.35s var(--ease), translate 0.35s var(--ease);
   }
-  .snap + .snap { margin-left: -14px; }
-  .snap:hover { rotate: 0deg; translate: 0 -4px; z-index: 1; }
-  .snap img, .snap__blank { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
-  .snap__blank { display: grid; place-items: center; padding: 0.3rem; background: rgb(214 228 245 / 0.55); text-align: center; }
-  .snap__blank span { font-size: 0.6rem; line-height: 1.3; color: var(--ink-muted); }
+  .snap:hover { rotate: 0deg; translate: 0 -4px; }
+  .snap img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 100%; }
 
-  .intro { margin-top: 2rem; }
+  .intro { margin-top: 2.6rem; }
   .intro p { font-size: var(--step-0); line-height: 1.75; }
   .intro p + p { margin-top: 1rem; }
   .intro__lead { font-family: var(--font-name); font-style: italic; font-size: var(--step-1) !important; line-height: 1.4 !important; }

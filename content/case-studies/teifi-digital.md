@@ -10,7 +10,7 @@ cover:
   alt: "[TODO: cover image for the teifi digital case study]"
 glance:
   - label: role
-    value: product marketing intern
+    value: product marketing intern, teifi digital
   - label: product
     value: WorkMate x Shopify POS, BikeSync
   - label: timeline
@@ -34,7 +34,7 @@ projects:
       - alt: "[TODO: screenshot of the launch tiers]"
   - title: monthly newsletter
     scope: end-to-end ownership of a monthly newsletter for shopify executives and business owners across retail verticals.
-    approach: for the first edition of field notes, i defined two core audiences, shopify executives and prospective business owners. i selected three recent case studies spanning different industries and recognizable companies to demonstrate relevance and credibility. conversations with the CEO and CRO informed my understanding of client needs, while workmate’s product changelog guided feature updates.
+    approach: "for the first edition of field notes, i defined two core audiences: shopify executives and prospective business owners. i selected three recent case studies spanning different industries and recognizable companies to demonstrate relevance and credibility. conversations with the CEO and CRO informed my understanding of client needs, while workmate’s product changelog guided feature updates."
     points:
       - label: content strategy & copywriting
         text: scoped the content and wrote the newsletter, bringing together product updates, customer stories, and commerce insights.
@@ -83,7 +83,7 @@ tools:
   - apollo
   - shopify liquid (basics)
   - figma
-  - google workspace
+  - gsuite
   - linear
   - squarespace
   - webflow

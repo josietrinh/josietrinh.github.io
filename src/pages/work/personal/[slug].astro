@@ -14,11 +14,11 @@ const d = entry.data;
 const { Content } = await render(entry);
 const monthYear = d.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }).toLowerCase();
 ---
-<Base title={d.title} description={`${d.title}: a self-initiated ${d.type} riffing on ${d.brand}. ${d.summary}`} texture="soft">
+<Base title={d.title} description={`${d.title}: a mock ${d.type} riffing on ${d.brand}. ${d.summary}`} texture="soft">
   <article class="pp wrap">
     <header class="head">
       <a class="head__back" href="/work/#personal">← personal projects</a>
-      <p class="head__stamp">{d.status === 'mock' ? 'mock ☆ self-initiated' : 'in progress ☆ self-initiated'}</p>
+      <p class="head__stamp">{d.status === 'mock' ? 'mock' : 'in progress'} ☆ {d.context}</p>
       <h1>{d.title}</h1>
       <p class="head__meta">riffs on <strong>{d.brand}</strong><span>{d.type}</span><span>{monthYear}</span></p>
       <p class="head__summary">{d.summary}</p>

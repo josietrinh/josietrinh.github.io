@@ -1,37 +1,24 @@
 {
-  "_how_to": "text for the about page. photos go in public/images/about/ and show as polaroids; leave src empty for a marked placeholder. 'currently' is a short list, edit it whenever.",
+  "_how_to": "text for the about page. the photo goes in public/images/about/. 'currently' is a short list, edit it whenever.",
   "blurb": [
     "besides my pursuit of a career in pmm, i love going on long walks, hanging out at the swings, listening to an unhealthy amount of music, and playing games. oh, and also manifesting for t1 to win their 7th worlds title!"
   ],
-  "photos": [
-    {
-      "src": "",
-      "alt": "[TODO: describe the photo]",
-      "caption": "[TODO: caption]"
-    },
-    {
-      "src": "",
-      "alt": "[TODO: describe the photo]",
-      "caption": "[TODO: caption]"
-    },
-    {
-      "src": "",
-      "alt": "[TODO: describe the photo]",
-      "caption": "[TODO: caption]"
-    }
-  ],
+  "photo": {
+    "src": "/images/about/josie-about.jpg",
+    "alt": "josie holding up a plate of skewers at a restaurant, shot on film"
+  },
   "currently": [
     {
       "label": "working on",
-      "text": "new iterations of this portfolio"
+      "text": "new iterations of this portfolio :D"
     },
     {
       "label": "listening to",
-      "text": "wish u well, underscores"
+      "text": "game 5 silver scrapes *duh dun*"
     },
     {
-      "label": "learning",
-      "text": "filming & storytelling"
+      "label": "side quests",
+      "text": "pursuing my dream of becoming a youtuber (vlog coming soon!!)"
     }
   ]
 }

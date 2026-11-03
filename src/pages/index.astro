@@ -12,6 +12,14 @@ type Tile = { motif: string; photo: string; alt: string; title: string; blurb: s
 const heroTiles = tileData.tiles as Tile[];
 const speech = 'https://www.youtube.com/watch?v=UF8uR6Z6KLc';
 const workTiles = ['sparkle', 'waves', 'stars'];
+// the tiny stars + dots around the name: x/y in %, size in px, d = twinkle delay in s
+const sparks = [
+  { x: 9, y: 16, s: 9, d: 0, star: true }, { x: 23, y: 8, s: 3, d: 1.1 }, { x: 40, y: 13, s: 4, d: 2.2 },
+  { x: 62, y: 9, s: 7, d: 0.6, star: true }, { x: 80, y: 14, s: 3, d: 1.7 }, { x: 91, y: 27, s: 8, d: 2.6, star: true },
+  { x: 6, y: 38, s: 3, d: 2 }, { x: 94, y: 48, s: 3, d: 0.3 }, { x: 5, y: 66, s: 7, d: 1.4, star: true },
+  { x: 92, y: 72, s: 4, d: 1 }, { x: 15, y: 86, s: 3, d: 0.8 }, { x: 34, y: 80, s: 7, d: 2.4, star: true },
+  { x: 52, y: 90, s: 3, d: 1.6 }, { x: 71, y: 83, s: 4, d: 0.2 }, { x: 86, y: 90, s: 9, d: 1.9, star: true },
+];
 ---
 <Base>
   <div class="sprinkle" aria-hidden="true"></div>
@@ -36,7 +44,12 @@ const workTiles = ['sparkle', 'waves', 'stars'];
             </button>
           ) : (
             <div class="tile tile--name">
-              <h1 id="name"><span>hi, i’m</span>{site.name}</h1>
+              <span class="sparks" aria-hidden="true">
+                {sparks.map((p, i) => (
+                  <i class:list={[p.star ? 'spark--star' : 'spark--dot']} style={`left:${p.x}%;top:${p.y}%;--s:${p.s}px;--d:${p.d}s;--c:var(--spark-${i % 3})`} />
+                ))}
+              </span>
+              <h1 id="name"><span>hi, i’m</span>{site.name}!</h1>
             </div>
           )
         )}
@@ -142,8 +155,21 @@ const workTiles = ['sparkle', 'waves', 'stars'];
   .tile--name {
     display: grid;
     place-items: center;
-    background: var(--tile-paper);
+    background: linear-gradient(150deg, #fffcf4 0%, #fdf5e3 55%, #fbeee6 100%);
     text-align: center;
+    --spark-0: #d9a441;
+    --spark-1: #7fa6dc;
+    --spark-2: #d98fb8;
+  }
+  /* the block-print texture would dull this one, so it only gets a whisper */
+  .tile--name::after { opacity: 0.15; }
+  .sparks { position: absolute; inset: 0; }
+  .sparks i { position: absolute; width: var(--s); height: var(--s); background: var(--c); animation: spark 3.4s ease-in-out infinite; animation-delay: var(--d); }
+  .spark--dot { border-radius: 50%; }
+  .spark--star { clip-path: polygon(50% 0, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0 50%, 42% 42%); }
+  @keyframes spark {
+    0%, 100% { opacity: 0.9; transform: scale(1); }
+    50% { opacity: 0.25; transform: scale(0.65); }
   }
   .tile--name h1 { display: grid; font-size: clamp(1.5rem, 0.8rem + 2.6vw, 2.8rem); line-height: 1; padding: 0.4rem; }
   .tile--name h1 span { font-size: 0.45em; color: var(--ink-soft); margin-bottom: 0.25em; }

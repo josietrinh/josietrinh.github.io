@@ -12,7 +12,7 @@ const projects = (await getCollection('personalProjects')).sort((a, b) => b.data
 const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' }).toLowerCase();
 const tapes = ['lilac', 'butter', 'sky', 'pistachio'] as const;
 ---
-<Base title="work" description="case studies from kabam games, teifi digital, and sfu surge, plus self-initiated mock campaigns by josie trinh.">
+<Base title="work" description="case studies from kabam games, teifi digital, and sfu surge, plus mock campaigns by josie trinh.">
   <div class="work wrap">
     <header class="head">
       <h1>work</h1>
@@ -45,7 +45,7 @@ const tapes = ['lilac', 'butter', 'sky', 'pistachio'] as const;
 
     <section class="mine" id="personal" aria-labelledby="mine-h">
       <h2 id="mine-h">personal projects</h2>
-      <p class="mine__intro">self-initiated mock campaigns. not client work, just ideas i couldn’t leave alone.</p>
+      <p class="mine__intro">mock campaigns and class projects. not client work, just ideas i couldn’t leave alone.</p>
 
       <div class="sketchbook">
         <ul class="sketches">

@@ -57,7 +57,7 @@ const caseStudies = defineCollection({
   }),
 });
 
-// self-initiated mock campaigns: one markdown file each; files starting with _ are skipped
+// mock campaigns: one markdown file each; files starting with _ are skipped
 const personalProjects = defineCollection({
   loader: glob({ pattern: '[!_]*.md', base: './content/personal-projects' }),
   schema: z.object({
@@ -67,6 +67,7 @@ const personalProjects = defineCollection({
     type: z.enum(['campaign', 'positioning', 'content', 'design']),
     summary: z.string(),
     status: z.enum(['mock', 'in-progress']),
+    context: z.string().default('self-initiated'), // where it came from, shown on the stamp
     cover: photo.optional(),
     gallery: z.array(photo).default([]),
     pdf: z.object({ src: z.string(), title: z.string() }).optional(),

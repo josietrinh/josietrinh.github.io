@@ -19,7 +19,7 @@ glance:
     value: live-game marketing, campaign coordination, and creative briefing
 projects:
   - title: the ultimate doom sweepstakes
-    scope: cross-functional asset coordination, creative briefing, and physical prize planning.
+    scope: cross-functional asset coordination, creative briefing, and giveaway planning.
     points:
       - label: asset scoping
         text: scoped all marketing assets needed for the sweepstakes.
@@ -27,8 +27,8 @@ projects:
         text: built and maintained an internal tracker bringing user acquisition (UA), lifecycle marketing (LCM), social media, and product marketing assets into a single source of truth; monitored asset progress across teams.
       - label: creative briefing
         text: led briefing for the sweepstakes’ main infographic and monthly key art.
-      - label: physical prize planning
-        text: set up all of the planning for the sweepstakes’ physical prizes, working with the legal and platform partnerships teams to shape the giveaway plan.
+      - label: giveaway planning
+        text: worked with the legal and platform partnerships teams to develop the giveaway plan.
     link:
       text: see the ultimate doom sweepstakes
       href: https://playcontestofchampions.com/ultimate-doom-sweepstakes/
@@ -39,17 +39,18 @@ projects:
       - src: /images/work/kabam-games/doom-2.jpeg
         alt: "the sweepstakes infographic: how to participate, with monthly login calendars for earning daily tickets from september to december"
         ratio: "1 / 1"
-  - title: in-app event cards
+  - title: platform promotional content
     scope: app-store promotional cards highlighting in-game events.
     points:
-      - text: managed brand alignment, cross-functional communications, and copywriting for the event cards.
+      - text: managed brand alignment for the app-store event cards, drafted copy for the promotional cards, highlighting in-game deals to attract new players & lapsed players browsing the app stores.
+      - text: collaborated with the platform and partnerships team to ship in-app promotional campaigns and special offers for apple and google.
     outcome: 700,000+ game installs within three weeks.
     contactForMore: true
   - title: monthly live-game marketing
     scope: recurring strategy, content planning, and promotional materials supporting title updates and player engagement.
     points:
       - text: centralized marketing operations and curated monthly strategy and content plans across growth, lifecycle marketing, social media, and creative.
-      - text: developed promotional materials with developers, live-game, and monetization teams.
+      - text: developed promotional materials through collaboration with live-game, live-operations, and monetization teams.
     outcome: content production efficiency increased by 25%.
     contactForMore: true
 learnings:
