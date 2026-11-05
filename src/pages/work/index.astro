@@ -1,5 +1,5 @@
 ---
-// work: professional case studies (woodcut folders) and personal projects (a sketchbook page).
+// work: professional case studies (their wallpapers as thumbnails) and personal projects (a sketchbook page).
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Tape from '../../components/Tape.astro';
@@ -29,7 +29,9 @@ const tapes = ['lilac', 'butter', 'sky', 'pistachio'] as const;
         {studies.map((s, i) => (
           <li>
             <a class="case" href={`/work/${s.id}/`}>
-              <span class="case__tile" aria-hidden="true" set:html={svg(s.data.motif)} />
+              {s.data.cover?.src
+                ? <img class="case__thumb" src={s.data.cover.src} alt="" loading="lazy" decoding="async" />
+                : <span class="case__tile" aria-hidden="true" set:html={svg(s.data.motif)} />}
               <div class="case__body">
                 <p class="case__n">case study {String(i + 1).padStart(2, '0')}</p>
                 <h3 class="case__co">{s.data.company}</h3>
@@ -56,7 +58,7 @@ const tapes = ['lilac', 'butter', 'sky', 'pistachio'] as const;
                 {p.data.cover?.src
                   ? <img src={p.data.cover.src} alt={p.data.cover.alt} loading="lazy" decoding="async" />
                   : <span class="sketch__blank" aria-hidden="true">[TODO: cover image]</span>}
-                <span class="sketch__stamp">{p.data.status === 'mock' ? 'mock' : 'in progress'}</span>
+                {p.data.status && <span class="sketch__stamp">{p.data.status === 'mock' ? 'mock' : 'in progress'}</span>}
                 <h3>{p.data.title}</h3>
                 <p class="sketch__meta">riffs on {p.data.brand} ☆ {p.data.type} ☆ {monthYear(p.data.date)}</p>
                 <p class="sketch__summary">{p.data.summary}</p>
@@ -82,7 +84,7 @@ const tapes = ['lilac', 'butter', 'sky', 'pistachio'] as const;
   section > h2 { display: flex; align-items: center; gap: 0.9rem; font-size: var(--step-2); margin-bottom: 1.6rem; }
   section > h2::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
 
-  /* professional: woodcut tile + file details */
+  /* professional: wallpaper thumbnail + file details */
   .cases { display: grid; gap: clamp(1.6rem, 4vw, 2.4rem); padding: 0; list-style: none; }
   .case {
     display: grid;
@@ -90,7 +92,16 @@ const tapes = ['lilac', 'butter', 'sky', 'pistachio'] as const;
     color: var(--ink);
     text-decoration: none;
   }
-  @media (min-width: 680px) { .case { grid-template-columns: minmax(180px, 240px) 1fr; align-items: start; } }
+  @media (min-width: 680px) { .case { grid-template-columns: minmax(200px, 280px) 1fr; align-items: start; } }
+  .case__thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    box-shadow: 0 1px 2px rgb(30 36 51 / 0.1), 0 20px 36px -24px rgb(30 36 51 / 0.45);
+    transition: transform 0.35s var(--ease);
+  }
+  .case:hover .case__thumb, .case:focus-visible .case__thumb { transform: translateY(-4px) rotate(-1deg); }
   .case__tile {
     display: block;
     aspect-ratio: 1;

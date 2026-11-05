@@ -1,11 +1,9 @@
 ---
-title: "bus 343 group presentation #2"
+title: "Mock OOH Campaign - Magic Spoon Cereal"
 brand: magic spoon
 date: 2026-11-03
 type: campaign
-summary: "mock ooh & growth marketing campaign for a healthy cereal brand, Magic Spoon"
-status: mock
-context: group project
+summary: "mock out-of-home & growth marketing campaign for a healthy cereal brand, Magic Spoon"
 cover:
   src: /images/personal/bus-343-magic-spoon/cover.jpg
   alt: "title slide reading magic spoon: flipping the script on gut health, for bus 343"

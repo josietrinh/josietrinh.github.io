@@ -1,5 +1,6 @@
 ---
 // landing: woodcut tiles. two-tone blocks with cut-out motifs, on star-sprinkled paper.
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Caption from '../components/Caption.astro';
 import site from '../../content/site.json';
@@ -11,7 +12,8 @@ import { isVideo } from '../lib/media';
 type Tile = { motif: string; photo: string; alt: string; title: string; blurb: string } | null;
 const heroTiles = tileData.tiles as Tile[];
 const speech = 'https://www.youtube.com/watch?v=UF8uR6Z6KLc';
-const workTiles = ['sparkle', 'waves', 'stars'];
+const studies = await getCollection('caseStudies');
+const coverOf = (slug: string) => studies.find((s) => s.id === slug)?.data.cover?.src;
 // the tiny stars + dots around the name: x/y in %, size in px, d = twinkle delay in s
 const sparks = [
   { x: 10, y: 15, s: 9, d: 0, star: true }, { x: 44, y: 11, s: 3, d: 2.2 }, { x: 86, y: 18, s: 7, d: 0.6, star: true },
@@ -56,7 +58,7 @@ const sparks = [
       <p class="memory" data-memory aria-live="polite"><span class="memory__hint">tap a tile for a little story ☆</span></p>
     </div>
     <div class="hero__words">
-      <Caption color="var(--powder)" class="hero__bio">{site.bio.text}</Caption>
+      <Caption color="var(--powder)" class="hero__bio">{site.bio.text}<a class="hero__lore" href="/lore/">read my lore</a></Caption>
       <Caption color="var(--butter)" class="hero__motto">
         <a class="motto-link" href={speech} target="_blank" rel="noopener" aria-describedby="motto-tip">
           <span class="sr-only">{site.motto.lead} {site.motto.twist} (opens steve jobs’ 2005 stanford commencement speech)</span>
@@ -71,9 +73,9 @@ const sparks = [
   <section class="work wrap" id="work" aria-labelledby="work-title">
     <h2 id="work-title" class="work__title">selected work</h2>
     <div class="work__grid">
-      {site.work.map((w, i) => (
+      {site.work.map((w) => (
         <a class="work__item" href={`/work/${w.slug}/`}>
-          <div class="tiles tiles--sage tiles--one"><div class="tile" set:html={svg(workTiles[i])} /></div>
+          <img class="work__thumb" src={coverOf(w.slug)} alt="" loading="lazy" decoding="async" />
           <p class="work__co">{w.company}</p>
           <p class="work__role">{w.role}</p>
           <p class="work__dates">{w.dates}</p>
@@ -154,8 +156,6 @@ const sparks = [
     box-shadow: 0 1px 2px rgb(30 36 51 / 0.1), 0 20px 36px -24px rgb(30 36 51 / 0.45);
   }
   .tiles--blue { --tile-ink: #8fb0dc; --tile-paper: #fbf6ea; }
-  .tiles--sage { --tile-ink: #a7b495; --tile-paper: #dcd6ec; }
-  .tiles--one { grid-template-columns: 1fr; }
   .tile {
     position: relative;
     aspect-ratio: 1;
@@ -315,13 +315,14 @@ const sparks = [
   .motto-link:focus-visible + .motto-tip { opacity: 1; translate: 0 0; }
 
   /* ---------- hero ---------- */
-  .hero { display: grid; gap: 2rem; align-items: center; padding-top: clamp(1.5rem, 4vw, 3rem); }
+  .hero { display: grid; gap: 2rem; align-items: start; padding-top: clamp(1.5rem, 4vw, 3rem); }
   .hero__tiles { width: min(100%, 560px); justify-self: center; }
   .hero__tiles .tiles--blue { width: 100%; }
   @media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 560px) 1fr; gap: 3.5rem; } }
   .hero__words { display: grid; justify-items: start; gap: 1.2rem; }
   :global(.hero__bio) { font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem); line-height: 1.35; padding: 0.7em 0.9em; }
   :global(.hero__motto) s { text-decoration-thickness: 1.5px; color: var(--ink-soft); }
+  .hero__lore { display: block; margin-top: 0.5em; width: fit-content; font-size: 0.8em; color: var(--blue-ink); }
   .hero__est { font-family: var(--font-pixel); font-size: 0.85rem; color: var(--ink-muted); }
 
   /* ---------- work ---------- */
@@ -330,8 +331,15 @@ const sparks = [
   .work__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 2.4rem 1.6rem; }
   .work__item { display: flex; flex-direction: column; align-items: flex-start; color: var(--ink); text-decoration: none; }
   .work__item:hover { color: var(--ink); }
-  .work__item .tiles { width: 100%; transition: transform 0.35s var(--ease); }
-  .work__item:hover .tiles { transform: translateY(-4px) rotate(-1deg); }
+  .work__thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    box-shadow: 0 1px 2px rgb(30 36 51 / 0.1), 0 20px 36px -24px rgb(30 36 51 / 0.45);
+    transition: transform 0.35s var(--ease);
+  }
+  .work__item:hover .work__thumb { transform: translateY(-4px) rotate(-1deg); }
   .work__co { margin-top: 1rem; font-family: var(--font-name); font-style: italic; font-size: var(--step-1); line-height: 1.2; }
   .work__role { margin-top: 0.3rem; font-weight: 700; line-height: 1.3; }
   .work__dates { margin-top: 0.15rem; font-size: var(--step--1); color: var(--ink-muted); }

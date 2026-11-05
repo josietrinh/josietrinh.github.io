@@ -60,10 +60,11 @@ import about from '../../content/about.json';
   .intro .intro__now { margin-top: 0; } /* the grid gap spaces it */
   .intro .snap { order: -1; }
   @media (min-width: 720px) {
-    /* the bio runs the full height; photo, then currently, stack beside it */
-    .intro { grid-template-columns: minmax(0, 1fr) 300px; grid-template-rows: auto 1fr; align-items: start; }
+    /* two equal columns that end on the same line: the photo takes up whatever currently leaves */
+    .intro { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 1fr auto; align-items: stretch; }
     .intro__text { grid-row: 1 / span 2; }
-    .intro .snap { order: 0; }
+    .intro .snap { order: 0; position: relative; width: 100%; min-height: 300px; }
+    .intro .snap img { position: absolute; inset: 10px 10px 32px; width: calc(100% - 20px); height: calc(100% - 42px); aspect-ratio: auto; }
     .intro__now { grid-column: 2; }
   }
 

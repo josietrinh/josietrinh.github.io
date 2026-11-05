@@ -18,7 +18,7 @@ const monthYear = d.date.toLocaleDateString('en-US', { month: 'long', year: 'num
   <article class="pp wrap">
     <header class="head">
       <a class="head__back" href="/work/#personal">← personal projects</a>
-      <p class="head__stamp">{d.status === 'mock' ? 'mock' : 'in progress'} ☆ {d.context}</p>
+      {d.status && <p class="head__stamp">{d.status === 'mock' ? 'mock' : 'in progress'} ☆ {d.context}</p>}
       <h1>{d.title}</h1>
       <p class="head__meta">riffs on <strong>{d.brand}</strong><span>{d.type}</span><span>{monthYear}</span></p>
       <p class="head__summary">{d.summary}</p>

@@ -6,17 +6,26 @@ interface Props {
   alt: string;
   caption?: string;
   ratio?: string;
+  poster?: string;
+  link?: string;
   eager?: boolean;
 }
-const { src = '', alt, caption, ratio = '4 / 3', eager = false } = Astro.props;
+const { src = '', alt, caption, ratio = '4 / 3', poster, link, eager = false } = Astro.props;
 ---
 <figure class="slot" style={`--ratio:${ratio}`}>
   {src && isVideo(src)
-    ? <video src={src} aria-label={alt} autoplay muted loop playsinline controls preload="metadata" />
+    ? poster
+      ? <video src={src} aria-label={alt} poster={poster} controls playsinline preload="none" />
+      : <video src={src} aria-label={alt} autoplay muted loop playsinline controls preload="metadata" />
     : src
     ? <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
     : <div class="slot__empty" role="img" aria-label={alt}><span>{alt}</span></div>}
-  {caption && <figcaption>{caption}</figcaption>}
+  {(caption || link) && (
+    <figcaption>
+      {caption}
+      {link && <a href={link} target="_blank" rel="noopener">watch on instagram ↗</a>}
+    </figcaption>
+  )}
 </figure>
 
 <style>
@@ -39,4 +48,5 @@ const { src = '', alt, caption, ratio = '4 / 3', eager = false } = Astro.props;
   }
   .slot__empty span { max-width: 28ch; font-size: 0.9rem; line-height: 1.4; color: var(--ink-muted); }
   .slot figcaption { margin-top: 0.4rem; font-size: 0.9rem; font-style: italic; color: var(--ink-muted); }
+  .slot figcaption a { display: block; width: fit-content; font-style: normal; color: var(--blue-ink); }
 </style>

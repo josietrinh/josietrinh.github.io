@@ -4,7 +4,6 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PhotoSlot from '../../components/PhotoSlot.astro';
 import { svg } from '../../lib/motifs';
-import { toEmbed } from '../../lib/embeds';
 
 export async function getStaticPaths() {
   const all = (await getCollection('caseStudies')).sort((a, b) => a.data.order - b.data.order);
@@ -51,7 +50,7 @@ const links = (s: string) => s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a hr
 
       <div class="cover">
         {d.cover?.src
-          ? <PhotoSlot src={d.cover.src} alt={d.cover.alt} ratio="16 / 9" eager />
+          ? <PhotoSlot src={d.cover.src} alt={d.cover.alt} ratio={d.cover.ratio ?? '16 / 9'} eager />
           : <div class="cover__tile" role="img" aria-label={d.cover?.alt ?? 'cover image placeholder'}>
               <span class="cover__art" set:html={svg(d.motif)} />
               <span class="cover__todo">[TODO: cover image]</span>
@@ -98,13 +97,17 @@ const links = (s: string) => s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a hr
             {p.link && (
               <p class="proj__link"><a href={p.link.href} target="_blank" rel="noopener">{p.link.text} ↗</a>{p.link.note && <span> · {p.link.note}</span>}</p>
             )}
+            {p.links.map((l) => (
+              <p class="proj__link"><a href={l.href} target="_blank" rel="noopener">{l.text} ↗</a></p>
+            ))}
 
             {p.photos.length > 0 && (
               <div class:list={['proj__photos', { 'proj__photos--one': p.photos.length === 1 }]}>
-                {p.photos.map((ph) => <PhotoSlot src={ph.src} alt={ph.alt} caption={ph.caption} ratio={ph.ratio} />)}
+                {p.photos.map((ph) => <PhotoSlot src={ph.src} alt={ph.alt} caption={ph.caption} ratio={ph.ratio} poster={ph.poster} link={ph.link} />)}
               </div>
             )}
             {p.contactForMore && <p class="proj__more">→ <a href="/contact/">reach out</a> for more information!</p>}
+            {p.confidential && <p class="proj__more">project assets are confidential, <a href="/contact/">reach out</a> for more information!</p>}
           </article>
         ))}
       </section>
@@ -122,25 +125,7 @@ const links = (s: string) => s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a hr
                 <p class="camp__summary">{c.summary}</p>
                 {c.assets.length > 0 && (
                   <div class:list={['camp__assets', { 'camp__assets--one': c.assets.length === 1 }]}>
-                    {c.assets.map((a) => {
-                      const e = toEmbed(a.href);
-                      return (
-                        <figure class="asset">
-                          {e && (
-                            <iframe
-                              class="asset__frame"
-                              src={e.src}
-                              title={`${c.name} ${a.label} on instagram`}
-                              loading="lazy"
-                              scrolling="no"
-                              allowtransparency="true"
-                              allow="encrypted-media; picture-in-picture"
-                            />
-                          )}
-                          <figcaption><a href={a.href} target="_blank" rel="noopener">{e ? `${a.label}, on instagram` : a.label} ↗</a></figcaption>
-                        </figure>
-                      );
-                    })}
+                    {c.assets.map((a) => <PhotoSlot src={a.src} alt={a.alt} caption={a.caption} ratio={a.ratio} poster={a.poster} link={a.link} />)}
                   </div>
                 )}
               </li>
@@ -185,20 +170,6 @@ const links = (s: string) => s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a hr
     </article>
   </div>
 </Base>
-
-<script>
-  // instagram embeds report their own height; size each frame to fit instead of cropping
-  window.addEventListener('message', (ev) => {
-    if (ev.origin !== 'https://www.instagram.com') return;
-    let data: any = ev.data;
-    try { if (typeof data === 'string') data = JSON.parse(data); } catch { return; }
-    const h = data?.type === 'MEASURE' ? Number(data.details?.height) : NaN;
-    if (!h) return;
-    for (const f of document.querySelectorAll<HTMLIFrameElement>('.asset__frame')) {
-      if (f.contentWindow === ev.source) f.style.height = `${Math.ceil(h)}px`;
-    }
-  });
-</script>
 
 <style>
   .cs { display: grid; gap: 2rem; padding-top: clamp(1.5rem, 4vw, 3rem); }
@@ -301,7 +272,7 @@ const links = (s: string) => s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a hr
 
   .proj__link span { color: var(--ink-muted); }
 
-  /* campaign index: one card per campaign, its assets embedded underneath */
+  /* campaign index: one card per campaign, its assets underneath */
   .camps { display: grid; gap: 1.6rem; padding: 0; list-style: none; }
   .camp { padding: 1.2rem; background: rgb(255 253 249 / 0.6); border: 1px solid var(--rule); }
   .camp__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.2rem 1rem; }
@@ -311,10 +282,6 @@ const links = (s: string) => s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a hr
   .camp__assets { display: grid; gap: 1rem; margin-top: 1.1rem; }
   @media (min-width: 640px) { .camp__assets { grid-template-columns: 1fr 1fr; align-items: start; } }
   .camp__assets--one { grid-template-columns: minmax(0, 400px) !important; }
-  .asset { margin: 0; min-width: 0; }
-  .asset__frame { display: block; width: 100%; height: 620px; border: 1px solid var(--rule); border-radius: 4px; background: var(--white); }
-  .asset figcaption { margin-top: 0.4rem; font-size: 0.9rem; }
-  .asset figcaption a { color: var(--blue-ink); }
 
   /* learnings: numbered notes */
   .learn { display: grid; gap: 1.4rem; padding: 0; list-style: none; }

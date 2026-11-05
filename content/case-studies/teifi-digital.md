@@ -6,13 +6,11 @@ order: 2
 focus: ecommerce go-to-market, lead generation, customer storytelling, and cross-functional workflows
 motif: waves
 cover:
-  src: ""
-  alt: "[TODO: cover image for the teifi digital case study]"
+  src: /images/work/teifi-digital/teifi-wallpaper.webp
+  alt: "workmate running on a shopify pos tablet at the counter of a bike shop, with a new work order card floating beside it"
 glance:
   - label: role
     value: product marketing intern, teifi digital
-  - label: product
-    value: WorkMate x Shopify POS, BikeSync
   - label: timeline
     value: may 6, 2025 – apr 17, 2026
   - label: focus
@@ -29,9 +27,7 @@ projects:
       - label: productization criteria
         text: added a gate for evaluating whether client-specific features were suitable for broader release, considering audience relevance, product fit, scalability, and technical readiness.
     outcome: accelerated new feature marketing rate by 10%.
-    photos:
-      - alt: "[TODO: screenshot of the notion framework]"
-      - alt: "[TODO: screenshot of the launch tiers]"
+    confidential: true
   - title: monthly newsletter
     scope: end-to-end ownership of a monthly newsletter for shopify executives and business owners across retail verticals.
     approach: "for the first edition of field notes, i defined two core audiences: shopify executives and prospective business owners. i selected three recent case studies spanning different industries and recognizable companies to demonstrate relevance and credibility. conversations with the CEO and CRO informed my understanding of client needs, while workmate’s product changelog guided feature updates."
@@ -45,9 +41,7 @@ projects:
     link:
       text: "published example: 190+ stores, +36% sales: complex retail as one system"
       href: https://www.linkedin.com/pulse/190-stores-36-sales-complex-retail-one-system-teifidigital-1nwuc/
-    photos:
-      - alt: "[TODO: the field notes newsletter]"
-      - alt: "[TODO: the field notes newsletter]"
+    confidential: true
   - title: gtm & nurturing campaign
     scope: targeted outbound, product education, and sales enablement for workmate’s shopify pos launch to bike shops.
     approach: with bike shops as the launch’s primary audience, i tailored outbound sequences by business size, operational needs, and supplier relationships. i connected outreach to a webinar on back-end inventory automation, with demo bookings as the next step and discounted rates for early signups. i also used industry press outreach to reach bike retailers beyond our outbound audience.
@@ -58,14 +52,15 @@ projects:
         text: created segmented email sequences and promoted the inventory automation webinar to bike shop owners.
       - label: press & sales assets
         text: wrote and submitted a press release through bicycle retailer and designed sales one-pagers.
-      - label: event support
-        text: assisted with an in-person event.
       - label: customer storytelling
         text: assisted the development of three ecommerce product case studies through user interviews and in-depth research to support enterprise sales.
     outcome: the campaign acquired 100+ marketing-qualified leads (MQLs), with a 50% conversion rate to product-qualified leads (PQLs). the bicycle retailer press release generated 50+ MQLs.
-    photos:
-      - alt: "[TODO: a sales one-pager or webinar asset]"
-      - alt: "[TODO: the bicycle retailer press release]"
+    links:
+      - text: "press release: workmate launch: unlocking the full power of shopify for bike shops"
+        href: https://www.bicycleretailer.com/announcements/2025/03/10/workmate-launch-unlocking-full-power-shopify-bike-shops
+      - text: workmate pos website
+        href: https://www.workmatepos.co/
+    confidential: true
 learnings:
   - title: "your job title isn’t your limit"
     text: "joining as an intern, i initially focused on completing deliverables without questioning the work further. working in a fast-paced startup environment, however, has taught me to ask better questions and propose new ideas that help the team move forward faster. i would ask myself, “what is stopping my team from moving at a faster pace, and how can i, as part of the marketing team, unblock that?” this has led me to conduct research and work closely with the product team, establishing a full product tiering guide. i picked up so much product understanding, working with development cycles, and project management, which wouldn’t have happened if i only stayed with my deliverables."

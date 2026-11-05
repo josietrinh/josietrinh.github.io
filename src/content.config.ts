@@ -7,6 +7,8 @@ const photo = z.object({
   alt: z.string(),
   caption: z.string().optional(),
   ratio: z.string().optional(), // e.g. "1 / 1" for square art; defaults to 4 / 3
+  poster: z.string().optional(), // a video with a poster waits for a click instead of autoplaying
+  link: z.string().optional(), // where the piece lives, shown under it
 });
 
 const point = z.object({
@@ -14,12 +16,12 @@ const point = z.object({
   text: z.string().default(''),
 });
 
-// one campaign in the index; instagram links are embedded, anything else is a plain link
+// one campaign in the index, with its assets underneath
 const campaign = z.object({
   name: z.string(),
   period: z.string(),
   summary: z.string(),
-  assets: z.array(z.object({ href: z.string(), label: z.string() })).default([]),
+  assets: z.array(photo).default([]),
 });
 
 const caseStudies = defineCollection({
@@ -45,8 +47,10 @@ const caseStudies = defineCollection({
         points: z.array(point).default([]),
         outcome: z.string().optional(),
         link: z.object({ text: z.string(), href: z.string(), note: z.string().optional() }).optional(),
+        links: z.array(z.object({ text: z.string(), href: z.string() })).default([]), // extras, listed after link
         photos: z.array(photo).default([]),
         contactForMore: z.boolean().default(false), // no visuals shown; points readers to the contact page instead
+        confidential: z.boolean().default(false), // same, but says the assets are confidential
       }),
     ),
     campaigns: z.array(campaign).default([]),
@@ -66,7 +70,7 @@ const personalProjects = defineCollection({
     date: z.coerce.date(),
     type: z.enum(['campaign', 'positioning', 'content', 'design']),
     summary: z.string(),
-    status: z.enum(['mock', 'in-progress']),
+    status: z.enum(['mock', 'in-progress']).optional(), // leave out to hide the stamp
     context: z.string().default('self-initiated'), // where it came from, shown on the stamp
     cover: photo.optional(),
     gallery: z.array(photo).default([]),

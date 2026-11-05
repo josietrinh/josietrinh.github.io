@@ -6,8 +6,9 @@ order: 3
 focus: hackathon growth, integrated marketing, and hacker experience
 motif: stars
 cover:
-  src: ""
-  alt: "[TODO: cover image for the sfu surge case study]"
+  src: /images/work/sfu-surge/surge-wallpaper.png
+  alt: "sfu surge and stormhacks logos side by side on a bright blue wallpaper, framed by orange dots and code brackets"
+  ratio: "4780 / 1782"
 glance:
   - label: role
     value: director, marketing & hacker experience
@@ -32,8 +33,18 @@ projects:
       href: https://drive.google.com/file/d/15MIGPRv1lV1H12MMdR2pIMyvBjD2vnuz/view?usp=sharing
       note: "2026 impact report coming soon : )"
     photos:
-      - alt: "[TODO: photo from stormhacks]"
-      - alt: "[TODO: photo from stormhacks]"
+      - src: /images/work/sfu-surge/courage-to-start.mp4
+        poster: /images/work/sfu-surge/courage-to-start-poster.jpg
+        alt: "courage to start, a promotional video: a student coding on a laptop in a dark lecture hall"
+        caption: courage to start, promotional video
+        link: https://www.instagram.com/p/DaE1dDgt-cn/
+        ratio: "16 / 9"
+      - src: /images/work/sfu-surge/main-concept-stormhacks.mp4
+        poster: /images/work/sfu-surge/main-concept-stormhacks-poster.jpg
+        alt: "the it’s time video for stormhacks: a person standing among rows of red stadium seats"
+        caption: it’s time
+        link: https://www.instagram.com/p/DblsO_EBa6M/
+        ratio: "16 / 9"
   - title: integrated marketing & workflow development
     problemLabel: challenge
     problem: build a stronger identity for surge and clarify overlapping social media and marketing coordinator responsibilities, starting without a prior context handover.
@@ -45,8 +56,18 @@ projects:
         text: ""
       - label: 870K social impressions in three months
     photos:
-      - alt: "[TODO: a video or social post you made]"
-      - alt: "[TODO: a behind-the-scenes shot from a shoot]"
+      - src: /images/work/sfu-surge/businesshacks.mp4
+        poster: /images/work/sfu-surge/businesshacks-poster.jpg
+        alt: "businesshacks promo video: a person in a suit gesturing mid-speech, with question marks on screen"
+        caption: part of a 4-video interview sitcom series
+        link: https://www.instagram.com/p/Da4UFMPtB6u/
+        ratio: "1 / 1"
+      - src: /images/work/sfu-surge/ggez.mp4
+        poster: /images/work/sfu-surge/ggez-poster.jpg
+        alt: "ggez promo video: a gamer in a racing jacket at a desk, lit by blue led strips"
+        caption: ggez
+        link: https://www.instagram.com/p/Ddk1xQhNWVM/
+        ratio: "1 / 1"
   - title: hacker experience portfolio
     problemLabel: challenge
     problem: "people often think of hackathons as “glaze fests,” “prompting contests,” or just another networking event. alongside my friend [keyaan vegdani](https://keyaanvegdani.com/index.html), we wanted to challenge that mindset and turn our hackathons into an event packed with fun and real connections. we created the hacker experience team that operates with a hacker-first mindset, prioritizing their well-being and needs."
@@ -65,37 +86,28 @@ campaigns:
     period: october 2025
     summary: western canada’s largest collegiate hackathon.
     assets:
-      - href: https://www.instagram.com/p/DPVLAR5k9Sn
-        label: campaign asset
+      - alt: "[TODO: stormhacks 2025 campaign asset]"
   - name: journeyhacks 2026
     period: january 2026
     summary: 12-hour beginner-friendly hackathon, aiming to help students getting their first experience in tech and hackathons.
     assets:
-      - href: https://www.instagram.com/p/DSzMfwwlDZ8
-        label: campaign asset
+      - alt: "[TODO: journeyhacks 2026 campaign asset]"
   - name: sparkjam 2026
     period: may 2026
     summary: 3-day design jam where over 100 talented designers come together to build on a given prompt.
     assets:
-      - href: https://www.instagram.com/reel/DVhrifGDeKy
-        label: reel
-      - href: https://www.instagram.com/p/DV2HwCGCfQ1
-        label: post
+      - alt: "[TODO: sparkjam 2026 reel]"
+      - alt: "[TODO: sparkjam 2026 post]"
   - name: stormhacks 2026
     period: october 2026
     summary: western canada’s largest collegiate hackathon, 2nd year in a row.
     assets:
-      - href: https://www.instagram.com/reel/Dcr3Kt9NcQO
-        label: reel
-      - href: https://www.instagram.com/sfusurge/p/DcCSy1-gcc9
-        label: post
-learnings:
-  - title: "[TODO: learning title]"
-    text: "[TODO: a sentence or two on what you learned]"
-  - title: "[TODO: learning title]"
-    text: "[TODO: a sentence or two on what you learned]"
-  - title: "[TODO: learning title]"
-    text: "[TODO: a sentence or two on what you learned]"
+      - src: /images/work/sfu-surge/sh26-2.jpg
+        alt: "organizers on stage tossing plushies to a crowd of raised hands, under the stormhacks title on the projector"
+        ratio: "3 / 2"
+      - src: /images/work/sfu-surge/sh26.jpg
+        alt: "an organizer winding up to throw a plushie toward the crowd during a stormhacks 2026 session"
+        ratio: "3 / 2"
 skills:
   - integrated marketing
   - campaign planning
