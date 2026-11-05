@@ -239,7 +239,9 @@ const links = (s: string) => s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a hr
   .glance dt { font-family: var(--font-name); font-style: italic; color: var(--ink-muted); }
   .glance dd { margin: 0; }
 
-  .prose { font-size: var(--step-0); line-height: 1.75; }
+  /* markdown paragraphs miss .article p's reset, so the overview needs its own to reach the rule */
+  .prose { font-size: var(--step-0); line-height: 1.7; }
+  .prose :global(p) { max-width: none; }
   .prose :global(p + p) { margin-top: 1rem; }
 
   /* each project */
