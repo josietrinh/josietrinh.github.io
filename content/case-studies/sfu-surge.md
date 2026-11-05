@@ -79,34 +79,82 @@ projects:
         text: engaged in hackathon side events.
       - label: 98% satisfaction rate in side event quality
     photos:
-      - alt: "[TODO: photo from the matcha cafe or the dating show]"
-      - alt: "[TODO: photo from a workshop or panel]"
+      - src: /images/work/sfu-surge/hacker-exp2.JPG
+        alt: "team members pouring rows of iced matcha at a long table"
+        caption: "whipped up over 400 drinks by hand @ 2am 😃"
+        ratio: "3 / 2"
+      - src: /images/work/sfu-surge/hacker-exp1.jpg
+        alt: "hackers crowded around gaming monitors at a side event"
+        caption: "co-hosted a 2v2 valo skirmish and 3v3 aram tourney!"
+        ratio: "3 / 2"
+      - src: /images/work/sfu-surge/hacker-exp3.JPG
+        alt: "a packed lecture hall facing the stage and the stormhacks letters"
+        caption: "yes we hosted a dating show. yes we got over 200 spectators"
+        ratio: "3 / 2"
+      - src: /images/work/sfu-surge/hacker-exp4.jpeg
+        alt: "github trivia in the lecture hall, with the stormhacks letters in front of the projector screen"
+        caption: "collaborated with github @ sfu for a github trivia!"
+        ratio: "3 / 2"
 campaigns:
   - name: stormhacks 2025
     period: october 2025
     summary: western canada’s largest collegiate hackathon.
     assets:
-      - alt: "[TODO: stormhacks 2025 campaign asset]"
+      - src: /images/work/sfu-surge/sh25-launch.mp4
+        poster: /images/work/sfu-surge/sh25-launch-poster.jpg
+        alt: "stormhacks 2025 launch video: a student with headphones around their neck, eyes closed at a laptop"
+        caption: "stormhacks 2025 website launch, with an emphasis on the pomodoro study feature"
+        link: https://www.instagram.com/reel/DOPrK3PEQXP/
+        ratio: "16 / 9"
+      - src: /images/work/sfu-surge/sh25-promo.mp4
+        poster: /images/work/sfu-surge/sh25-promo-poster.jpg
+        alt: "stormhacks 2025 promo video: a person standing in a classroom with hackers working behind them"
+        caption: "fun promo video"
+        link: https://www.instagram.com/reel/DOryjx7D6RB/
+        ratio: "9 / 16"
   - name: journeyhacks 2026
     period: january 2026
     summary: 12-hour beginner-friendly hackathon, aiming to help students getting their first experience in tech and hackathons.
     assets:
-      - alt: "[TODO: journeyhacks 2026 campaign asset]"
+      - src: /images/work/sfu-surge/journeyhacks-main.mp4
+        poster: /images/work/sfu-surge/journeyhacks-main-poster.jpg
+        alt: "journeyhacks 2026 video: two people in cowboy styling at a doorway, captioned about the best hoedown in the city"
+        caption: "yeehaw!"
+        link: https://www.instagram.com/reel/DSRHwRFCQOG/
+        ratio: "9 / 16"
+      - src: /images/work/sfu-surge/journeyhacks-teaser.mp4
+        poster: /images/work/sfu-surge/journeyhacks-teaser-poster.jpg
+        alt: "journeyhacks 2026 teaser: a close-up of a hand turning over a playing card"
+        caption: "beginner hackathon promo video (western version)"
+        link: https://www.instagram.com/reel/DR_TPE-Eau9/
+        ratio: "9 / 16"
   - name: sparkjam 2026
     period: may 2026
     summary: 3-day design jam where over 100 talented designers come together to build on a given prompt.
     assets:
-      - alt: "[TODO: sparkjam 2026 reel]"
-      - alt: "[TODO: sparkjam 2026 post]"
+      - src: /images/work/sfu-surge/jam-series1.mp4
+        poster: /images/work/sfu-surge/jam-series1-poster.jpg
+        alt: "sparkjam 2026 jam series video: a hand reaching for jars of jam on a shelf"
+        caption: "\"jam,\" with a fun twist"
+        link: https://www.instagram.com/reel/DXGQ1S5DdHD/
+        ratio: "9 / 16"
+      - src: /images/work/sfu-surge/jam-series2.mp4
+        poster: /images/work/sfu-surge/jam-series2-poster.jpg
+        alt: "sparkjam 2026 jam series video: hands playing a piano"
+        caption: "\"jam,\" with a fun twist"
+        link: https://www.instagram.com/reel/DXQtLbUjc61/
+        ratio: "9 / 16"
   - name: stormhacks 2026
     period: october 2026
     summary: western canada’s largest collegiate hackathon, 2nd year in a row.
     assets:
       - src: /images/work/sfu-surge/sh26-2.jpg
         alt: "organizers on stage tossing plushies to a crowd of raised hands, under the stormhacks title on the projector"
+        caption: "everyone wants"
         ratio: "3 / 2"
       - src: /images/work/sfu-surge/sh26.jpg
         alt: "an organizer winding up to throw a plushie toward the crowd during a stormhacks 2026 session"
+        caption: "free merch!"
         ratio: "3 / 2"
 skills:
   - integrated marketing
