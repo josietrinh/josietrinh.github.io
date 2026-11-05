@@ -106,12 +106,6 @@ campaigns:
         caption: "stormhacks 2025 website launch, with an emphasis on the pomodoro study feature"
         link: https://www.instagram.com/reel/DOPrK3PEQXP/
         ratio: "16 / 9"
-      - src: /images/work/sfu-surge/sh25-promo.mp4
-        poster: /images/work/sfu-surge/sh25-promo-poster.jpg
-        alt: "stormhacks 2025 promo video: a person standing in a classroom with hackers working behind them"
-        caption: "fun promo video"
-        link: https://www.instagram.com/reel/DOryjx7D6RB/
-        ratio: "9 / 16"
   - name: journeyhacks 2026
     period: january 2026
     summary: 12-hour beginner-friendly hackathon, aiming to help students getting their first experience in tech and hackathons.
