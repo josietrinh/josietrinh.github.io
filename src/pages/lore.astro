@@ -1,5 +1,5 @@
 ---
-// lore: the story beside a polaroid, what i'm up to, then the year's playlist.
+// lore: the story beside a polaroid and what i'm up to, then the year's playlist.
 import Base from '../layouts/Base.astro';
 import site from '../../content/site.json';
 import about from '../../content/about.json';
@@ -25,15 +25,14 @@ import about from '../../content/about.json';
       <figure class="snap">
         <img src={about.photo.src} alt={about.photo.alt} decoding="async" />
       </figure>
-    </section>
-
-    <section class="sec" aria-labelledby="now-h">
-      <h2 id="now-h">currently</h2>
-      <dl class="now">
-        {about.currently.map((c) => (
-          <div><dt>{c.label}</dt><dd>{c.text}</dd></div>
-        ))}
-      </dl>
+      <section class="sec intro__now" aria-labelledby="now-h">
+        <h2 id="now-h">currently</h2>
+        <dl class="now">
+          {about.currently.map((c) => (
+            <div><dt>{c.label}</dt><dd>{c.text}</dd></div>
+          ))}
+        </dl>
+      </section>
     </section>
 
     <figure class="playlist">
@@ -58,10 +57,14 @@ import about from '../../content/about.json';
   /* bio left, photo right; on phones the photo leads */
   .intro { display: grid; gap: 2.2rem clamp(2rem, 6vw, 4rem); align-items: center; }
   .intro__text { min-width: 0; }
+  .intro .intro__now { margin-top: 0; } /* the grid gap spaces it */
   .intro .snap { order: -1; }
   @media (min-width: 720px) {
-    .intro { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; }
+    /* the bio runs the full height; photo, then currently, stack beside it */
+    .intro { grid-template-columns: minmax(0, 1fr) 300px; grid-template-rows: auto 1fr; align-items: start; }
+    .intro__text { grid-row: 1 / span 2; }
     .intro .snap { order: 0; }
+    .intro__now { grid-column: 2; }
   }
 
   /* the polaroid; the crop centres on josie in the landscape photo */
@@ -95,7 +98,7 @@ import about from '../../content/about.json';
   .now { display: grid; margin: 0; }
   .now div { display: grid; gap: 0.1rem 1.4rem; padding: 0.55rem 0; }
   .now div + div { border-top: 1px dashed var(--rule); }
-  @media (min-width: 480px) { .now div { grid-template-columns: 7rem 1fr; } }
+  @media (min-width: 480px) and (max-width: 719px) { .now div { grid-template-columns: 7rem 1fr; } }
   .now dt { font-family: var(--font-name); font-style: italic; color: var(--ink-muted); }
   .now dd { margin: 0; }
 
