@@ -1,11 +1,29 @@
 {
-  "_how_to": "text for the about page. the photo goes in public/images/about/. 'currently' is a short list, edit it whenever.",
+  "_how_to": "text for the lore page. the photo goes in public/images/about/. hobbies can use <s> for strikethrough. 'currently' is a short list, edit it whenever.",
+  "lead": "hey, it’s josie!",
   "blurb": [
-    "besides my pursuit of a career in pmm, i love going on long walks, hanging out at the swings, listening to an unhealthy amount of music, and playing games. oh, and also manifesting for t1 to win their 7th worlds title!"
+    "i was born and raised in vietnam, and i moved to canada at the age of 17.",
+    "this has shaped my perspective on defining success. my friends and family often reassure me that i care too much not to make it, and i’m in the process of relearning how to enjoy the beautiful little things in life and take things at a slower pace.",
+    "i used to tell people that my hobby was reading the encyclopedia, and while that is cool, this is what i now enjoy:"
   ],
+  "hobbies": [
+    "running it down in aram with my friends",
+    "going to live concerts (i went to 10 different concerts this year!)",
+    "making collages on figma",
+    "filming mini vlogs that i will somehow <s>never</s> edit",
+    "going on very long walks"
+  ],
+  "moreLore": {
+    "label": "some more josie lore:",
+    "items": [
+      "i’m trilingual: vietnamese, english, and korean, which i picked up through being the biggest koreaboo ever",
+      "i love the smell of jasmine since it reminds me of what my first ever flight smelled like",
+      "did i mention that i love music?"
+    ]
+  },
   "photo": {
-    "src": "/images/about/josie-about.jpg",
-    "alt": "josie holding up a plate of skewers at a restaurant, shot on film"
+    "src": "/images/about/updated-about.jpg",
+    "alt": "josie balancing a paper cup in their mouth and throwing up a peace sign, with a camera in the other hand"
   },
   "currently": [
     {

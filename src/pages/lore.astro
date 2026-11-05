@@ -60,11 +60,11 @@ import about from '../../content/about.json';
   .intro__text { min-width: 0; }
   .intro .snap { order: -1; }
   @media (min-width: 720px) {
-    .intro { grid-template-columns: minmax(0, 1fr) 300px; }
+    .intro { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; }
     .intro .snap { order: 0; }
   }
 
-  /* the polaroid; the crop keeps the face + the plate and drops the sign above */
+  /* the polaroid; the crop centres on josie in the landscape photo */
   .snap {
     width: min(100%, 300px);
     margin: 0;
@@ -75,7 +75,7 @@ import about from '../../content/about.json';
     transition: rotate 0.35s var(--ease), translate 0.35s var(--ease);
   }
   .snap:hover { rotate: 0deg; translate: 0 -4px; }
-  .snap img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 100%; }
+  .snap img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 54% 50%; }
 
   .intro p { font-size: var(--step-0); line-height: 1.75; }
   .intro__text p + p { margin-top: 1rem; }
