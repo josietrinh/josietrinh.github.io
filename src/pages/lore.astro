@@ -1,39 +1,30 @@
 ---
-// about: the bio beside a polaroid, then experience, what i'm up to, then the year's playlist.
+// lore: the story beside a polaroid, what i'm up to, then the year's playlist.
 import Base from '../layouts/Base.astro';
 import site from '../../content/site.json';
 import about from '../../content/about.json';
-import { svg } from '../lib/motifs';
-
-const motifs = ['sparkle', 'waves', 'stars'];
 ---
-<Base title="about" description={`about ${site.name}: ${site.bio.text}.`}>
+<Base title="lore" description={`lore of ${site.name}: ${site.bio.text}.`}>
   <div class="about wrap">
-    <h1 class="sr-only">about</h1>
+    <h1 class="sr-only">lore</h1>
 
     <section class="intro" aria-label="intro">
       <div class="intro__text">
-        <p class="intro__lead">{site.bio.text}.</p>
+        <p class="intro__lead">{about.lead}</p>
         {about.blurb.map((p) => <p>{p}</p>)}
+        <ul class="hobbies">
+          {about.hobbies.map((h) => <li set:html={h} />)}
+        </ul>
+        <blockquote class="more">
+          <p>{about.moreLore.label}</p>
+          <ul>
+            {about.moreLore.items.map((m) => <li>{m}</li>)}
+          </ul>
+        </blockquote>
       </div>
       <figure class="snap">
         <img src={about.photo.src} alt={about.photo.alt} decoding="async" />
       </figure>
-    </section>
-
-    <section class="sec" aria-labelledby="exp-h">
-      <h2 id="exp-h">experience</h2>
-      <ol class="exp">
-        {site.work.map((w, i) => (
-          <li>
-            <a href={`/work/${w.slug}/`}>
-              <span class="exp__mark" aria-hidden="true" set:html={svg(motifs[i % motifs.length])} />
-              <span class="exp__role"><strong>{w.company}</strong> / {w.role}</span>
-              <span class="exp__dates">{w.dates}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
     </section>
 
     <section class="sec" aria-labelledby="now-h">
@@ -55,7 +46,7 @@ const motifs = ['sparkle', 'waves', 'stars'];
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         allowfullscreen
       ></iframe>
-      <figcaption>my 2026, in the form of notes and strings</figcaption>
+      <figcaption>my 2026, in melodies</figcaption>
     </figure>
   </div>
 </Base>
@@ -89,25 +80,17 @@ const motifs = ['sparkle', 'waves', 'stars'];
   .intro p { font-size: var(--step-0); line-height: 1.75; }
   .intro__text p + p { margin-top: 1rem; }
   .intro__lead { font-family: var(--font-name); font-style: italic; font-size: var(--step-1) !important; line-height: 1.4 !important; }
+  .hobbies { margin: 0.6rem 0 0; padding-left: 1.2rem; line-height: 1.6; }
+  .hobbies li + li { margin-top: 0.2rem; }
+
+  /* the aside: smaller, quieter, set off like a quote */
+  .more { margin: 1.5rem 0 0; padding-left: 1rem; border-left: 2px solid var(--rule); color: var(--ink-soft); }
+  .more p { font-size: var(--step--1); line-height: 1.5; font-style: italic; }
+  .more ul { margin: 0.3rem 0 0; padding-left: 1.1rem; font-size: var(--step--1); line-height: 1.5; }
+  .more li + li { margin-top: 0.2rem; }
 
   .sec { margin-top: clamp(2.8rem, 7vw, 4rem); }
   .sec > h2 { font-family: var(--font-name); font-style: italic; font-weight: 400; font-size: var(--step-1); margin-bottom: 0.6rem; }
-
-  /* experience: mark, company / role, dates */
-  .exp { padding: 0; list-style: none; }
-  .exp a { display: grid; grid-template-columns: 2.2rem 1fr auto; align-items: center; gap: 0.9rem; padding: 0.8rem 0.2rem; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; transition: background 0.2s; }
-  .exp li:last-child a { border-bottom: 0; }
-  .exp a:hover { background: rgb(214 228 245 / 0.35); }
-  .exp__mark { display: block; width: 2.2rem; aspect-ratio: 1; padding: 3px; background: #dcd6ec; }
-  .exp__mark :global(svg) { display: block; width: 100%; height: 100%; background: #a7b495; }
-  .exp__mark :global(.m) { fill: #dcd6ec; stroke: #dcd6ec; }
-  .exp__role { line-height: 1.35; color: var(--ink-muted); }
-  .exp__role strong { font-weight: 700; color: var(--ink); }
-  .exp__dates { color: var(--ink-muted); font-size: var(--step--1); white-space: nowrap; }
-  @media (max-width: 479px) {
-    .exp a { grid-template-columns: 2.2rem 1fr; }
-    .exp__dates { grid-column: 2; margin-top: -0.6rem; }
-  }
 
   .now { display: grid; margin: 0; }
   .now div { display: grid; gap: 0.1rem 1.4rem; padding: 0.55rem 0; }
