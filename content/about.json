@@ -1,5 +1,5 @@
 {
-  "_how_to": "text for the lore page. the photo goes in public/images/about/. hobbies can use <s> for strikethrough. 'currently' is a short list, edit it whenever.",
+  "_how_to": "text for the lore page. the photo goes in public/images/about/. hobbies can use <s> for strikethrough.",
   "lead": "i'm josie, or if you can pronounce it, thảo nghi.",
   "blurb": [
     "i was born and raised in vietnam, and i moved to canada at the age of 17.",
@@ -25,35 +25,64 @@
     "_how_to": "logos live in public/images/about/logos/. 'href' is optional: the main three link to their case studies.",
     "label": "experience",
     "main": [
-      { "company": "sfu surge", "role": "director, marketing & hacker experience", "years": "2024 – 2026", "logo": "/images/about/logos/sfu-surge.jpg", "href": "/work/sfu-surge/" },
-      { "company": "kabam games", "role": "product marketing intern", "years": "2026", "logo": "/images/about/logos/kabam.jpg", "href": "/work/kabam-games/" },
-      { "company": "teifi digital", "role": "product marketing intern", "years": "2025 – 2026", "logo": "/images/about/logos/teifi.jpg", "href": "/work/teifi-digital/" }
+      {
+        "company": "sfu surge",
+        "role": "director, marketing & hacker experience",
+        "years": "2024 – 2026",
+        "logo": "/images/about/logos/sfu-surge.jpg",
+        "href": "/work/sfu-surge/"
+      },
+      {
+        "company": "kabam games",
+        "role": "product marketing intern",
+        "years": "2026",
+        "logo": "/images/about/logos/kabam.jpg",
+        "href": "/work/kabam-games/"
+      },
+      {
+        "company": "teifi digital",
+        "role": "product marketing intern",
+        "years": "2025 – 2026",
+        "logo": "/images/about/logos/teifi.jpg",
+        "href": "/work/teifi-digital/"
+      }
     ],
     "sideQuestsLabel": "other side quests",
     "sideQuests": [
-      { "company": "notion", "role": "campus ambassador", "years": "2026", "logo": "/images/about/logos/notion.jpg" },
-      { "company": "vietnamese student association sfu", "role": "president", "years": "2024 – 2025", "logo": "/images/about/logos/vsa-sfu.jpg" },
-      { "company": "axis consulting", "role": "marketing director", "years": "2024 – 2025", "logo": "/images/about/logos/axis-consulting.jpg" },
-      { "company": "sfu student marketing association", "role": "marketing coordinator", "years": "2024 – 2025", "logo": "/images/about/logos/sfu-sma.jpg" },
-      { "company": "genz vivu podcast", "role": "marketing director", "years": "2024 – 2025", "logo": "/images/about/logos/genz-vivu.jpg" }
+      {
+        "company": "notion",
+        "role": "campus ambassador",
+        "years": "2026",
+        "logo": "/images/about/logos/notion.jpg"
+      },
+      {
+        "company": "vietnamese student association sfu",
+        "role": "president",
+        "years": "2024 – 2025",
+        "logo": "/images/about/logos/vsa-sfu.jpg"
+      },
+      {
+        "company": "axis consulting",
+        "role": "marketing director",
+        "years": "2024 – 2025",
+        "logo": "/images/about/logos/axis-consulting.jpg"
+      },
+      {
+        "company": "sfu student marketing association",
+        "role": "marketing coordinator",
+        "years": "2024 – 2025",
+        "logo": "/images/about/logos/sfu-sma.jpg"
+      },
+      {
+        "company": "genz vivu podcast",
+        "role": "marketing director",
+        "years": "2024 – 2025",
+        "logo": "/images/about/logos/genz-vivu.jpg"
+      }
     ]
   },
   "photo": {
     "src": "/images/about/updated-about.jpg",
     "alt": "josie balancing a paper cup in their mouth and throwing up a peace sign, with a camera in the other hand"
-  },
-  "currently": [
-    {
-      "label": "working on",
-      "text": "new iterations of this portfolio :D"
-    },
-    {
-      "label": "listening to",
-      "text": "game 5 silver scrapes *duh dun*"
-    },
-    {
-      "label": "side quests",
-      "text": "pursuing my dream of becoming a youtuber (vlog coming soon!!)"
-    }
-  ]
+  }
 }

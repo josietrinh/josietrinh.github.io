@@ -1,5 +1,5 @@
 ---
-// lore: the story beside a polaroid and what i'm up to, then the year's playlist.
+// lore: the story beside a polaroid and some more lore, then experience and the year's playlist.
 import Base from '../layouts/Base.astro';
 import site from '../../content/site.json';
 import about from '../../content/about.json';
@@ -15,24 +15,16 @@ import about from '../../content/about.json';
         <ul class="hobbies">
           {about.hobbies.map((h) => <li set:html={h} />)}
         </ul>
-        <blockquote class="more">
-          <p>{about.moreLore.label}</p>
-          <ul>
-            {about.moreLore.items.map((m) => <li>{m}</li>)}
-          </ul>
-        </blockquote>
       </div>
       <figure class="snap">
         <img src={about.photo.src} alt={about.photo.alt} decoding="async" />
       </figure>
-      <section class="sec intro__now" aria-labelledby="now-h">
-        <h2 id="now-h">currently</h2>
-        <dl class="now">
-          {about.currently.map((c) => (
-            <div><dt>{c.label}</dt><dd>{c.text}</dd></div>
-          ))}
-        </dl>
-      </section>
+      <blockquote class="more intro__more">
+        <p>{about.moreLore.label}</p>
+        <ul>
+          {about.moreLore.items.map((m) => <li>{m}</li>)}
+        </ul>
+      </blockquote>
     </section>
 
     <section class="sec exp" aria-labelledby="exp-h">
@@ -88,15 +80,15 @@ import about from '../../content/about.json';
   /* bio left, photo right; on phones the photo leads */
   .intro { display: grid; gap: 2.2rem clamp(2rem, 6vw, 4rem); align-items: center; }
   .intro__text { min-width: 0; }
-  .intro .intro__now { margin-top: 0; } /* the grid gap spaces it */
+  .intro .intro__more { margin-top: 0; } /* the grid gap spaces it */
   .intro .snap { order: -1; }
   @media (min-width: 720px) {
-    /* two equal columns that end on the same line: the photo takes up whatever currently leaves */
+    /* two equal columns that end on the same line: the photo takes up whatever the lore aside leaves */
     .intro { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 1fr auto; align-items: stretch; }
     .intro__text { grid-row: 1 / span 2; }
     .intro .snap { order: 0; position: relative; width: 100%; min-height: 300px; }
     .intro .snap img { position: absolute; inset: 10px 10px 32px; width: calc(100% - 20px); height: calc(100% - 42px); aspect-ratio: auto; }
-    .intro__now { grid-column: 2; }
+    .intro__more { grid-column: 2; }
   }
 
   /* the polaroid; the crop centres on josie in the landscape photo */
@@ -127,12 +119,6 @@ import about from '../../content/about.json';
   .sec { margin-top: clamp(2.8rem, 7vw, 4rem); }
   .sec > h2 { font-family: var(--font-name); font-style: italic; font-weight: 400; font-size: var(--step-1); margin-bottom: 0.6rem; }
 
-  .now { display: grid; margin: 0; }
-  .now div { display: grid; gap: 0.1rem 1.4rem; padding: 0.55rem 0; }
-  .now div + div { border-top: 1px dashed var(--rule); }
-  @media (min-width: 480px) and (max-width: 719px) { .now div { grid-template-columns: 7rem 1fr; } }
-  .now dt { font-family: var(--font-name); font-style: italic; color: var(--ink-muted); }
-  .now dd { margin: 0; }
 
   /* experience: logo, company / role, years; quiet rules between rows */
   .exp__list { list-style: none; margin: 0; padding: 0; }
